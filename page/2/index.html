@@ -222,6 +222,86 @@
   <div class="meta" id="header-meta">
     
       <h2 class="title">
+          <a href="/libevent编译设置/">
+              
+                  libevent编译设置
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2019-04-17 星期三
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/linux/Linux编译环境设置/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              linux&nbsp;/&nbsp;Linux编译环境设置
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <p>1.在/etc/bashrc添加 头文件，库文件搜索路径<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH</span><br><span class="line">C_INCLUDE_PATH=/opt/libevent/libevent2.1.8/include:/MyLib  </span><br><span class="line"><span class="built_in">export</span> C_INCLUDE_PATH</span><br><span class="line">CPLUS_INCLUDE_PATH=<span class="variable">$CPLUS_INCLUDE_PATH</span>:/opt/libevent/libevent2.1.8/include:/MyLib  </span><br><span class="line"><span class="built_in">export</span> CPLUS_INCLUDE_PATH</span><br><span class="line">LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:/opt/libevent/libevent2.1.8/lib:/MyLib  </span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH</span><br><span class="line">LIBRARY_PATH=<span class="variable">$LIBRARY_PATH</span>:/opt/libevent/libevent2.1.8/lib:/MyLib  </span><br><span class="line"><span class="built_in">export</span> LIBRARY_PATH</span><br></pre></td></tr></table></figure></p>
+<p>2.编译时添加命令 -levent，-levent表示要链接libevent静态函数</p>
+        
+            <div class="readmore">
+                <a href="/libevent编译设置/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
+                
+                    <a href="/tags/Linux编译环境设置/"><i class="fas fa-hashtag fa-fw"></i>Linux编译环境设置</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
           <a href="/linux netcat工具安装/">
               
                   linux netcat工具安装
@@ -926,85 +1006,6 @@
             </div>
           
         
-          
-            <div class="post-wrapper">
-              <article class="post reveal ">
-    
-<section class="meta">
-  
-  
-  <div class="meta" id="header-meta">
-    
-      <h2 class="title">
-          <a href="/14.3 在多线程程序中调用fork函数/">
-              
-                  14.3 在多线程程序中调用fork函数
-              
-          </a>
-      </h2>
-    
-
-    <div class="new-meta-box">
-      
-        <div class="new-meta-item author">
-          <a href="https://calm2012.github.io/calm2012.github.io">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            calm2012
-          </a>
-        </div>
-      
-      
-        <div class="new-meta-item date">
-          <a class="notlink">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            2019-04-09 星期二
-          </a>
-        </div>
-      
-      
-        
-          
-          <div class="new-meta-item category">
-            <a href="/categories/linux/Linux高性能服务器编程/">
-              <i class="fas fa-folder-open" aria-hidden="true"></i>
-              linux&nbsp;/&nbsp;Linux高性能服务器编程
-            </a>
-          </div>
-        
-      
-      
-      
-    </div>
-    <hr>
-  </div>
-</section>
-
-    <section class="article typo">
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> mutex;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">another</span><span class="params">( <span class="keyword">void</span>* arg )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">"in child thread, lock the mutex\n"</span> );</span><br><span class="line">    pthread_mutex_lock( &amp;mutex );</span><br><span class="line">    sleep( <span class="number">5</span> );</span><br><span class="line">    pthread_mutex_unlock( &amp;mutex );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    pthread_mutex_lock( &amp;mutex );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">infork</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    pthread_mutex_unlock( &amp;mutex );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    pthread_mutex_init( &amp;mutex, <span class="literal">NULL</span> );</span><br><span class="line">    <span class="keyword">pthread_t</span> id;</span><br><span class="line">    pthread_create( &amp;id, <span class="literal">NULL</span>, another, <span class="literal">NULL</span> );</span><br><span class="line">    <span class="comment">//pthread_atfork( prepare, infork, infork );</span></span><br><span class="line">    sleep( <span class="number">1</span> );</span><br><span class="line">    <span class="keyword">int</span> pid = fork();</span><br><span class="line">    <span class="keyword">if</span>( pid &lt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        pthread_join( id, <span class="literal">NULL</span> );</span><br><span class="line">        pthread_mutex_destroy( &amp;mutex );</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( pid == <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"I anm in the child, want to get the lock\n"</span> );</span><br><span class="line">        pthread_mutex_lock( &amp;mutex );</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"I can not run to here, oop...\n"</span> );</span><br><span class="line">        pthread_mutex_unlock( &amp;mutex );</span><br><span class="line">        <span class="built_in">exit</span>( <span class="number">0</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        pthread_mutex_unlock( &amp;mutex );</span><br><span class="line">        wait( <span class="literal">NULL</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_join( id, <span class="literal">NULL</span> );</span><br><span class="line">    pthread_mutex_destroy( &amp;mutex );</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-            <div class="readmore">
-                <a href="/14.3 在多线程程序中调用fork函数/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-                
-                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-            </div>
-          
-        
       
 
   </section>
@@ -1117,6 +1118,10 @@
     <div class="content pure">
       <ul class="entry">
         
+          <li><a class="flat-box" title="/categories/C/" href="/categories/C/"><div class="name">C++</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/C/C-深入浅出系列/" href="/categories/C/C-深入浅出系列/"><div class="name">C++深入浅出系列</div><div class="badge">(1)</div></a></li>
+        
           <li><a class="flat-box" title="/categories/QT/" href="/categories/QT/"><div class="name">QT</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/QT/QT/" href="/categories/QT/QT/"><div class="name">QT</div><div class="badge">(1)</div></a></li>
@@ -1175,7 +1180,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/QT/" style="font-size: 14px; color: #999">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
+      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C-深入浅出系列/" style="font-size: 14px; color: #999">C++深入浅出系列</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/QT/" style="font-size: 14px; color: #999">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
     </div>
   </section>
 

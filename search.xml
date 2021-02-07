@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>C++深入浅出之：C++虚表(一)</title>
+      <link href="/C++%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E4%B9%8B%EF%BC%9AC++%E8%99%9A%E8%A1%A8(%E4%B8%80)/"/>
+      <url>/C++%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E4%B9%8B%EF%BC%9AC++%E8%99%9A%E8%A1%A8(%E4%B8%80)/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">实验环境:</span> <span class="string">windows10</span> <span class="string">x64</span>  <span class="string">VS2019</span></span><br><span class="line"><span class="string">我们来分析最基本的</span> <span class="string">单继承</span></span><br></pre></td></tr></table></figure><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Base show.\n"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">virtual</span> ~Base() &#123;&#125;</span><br><span class="line">  <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTest</span> :</span> <span class="keyword">public</span> Base &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"CTest show.\n"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Base b;</span><br><span class="line">  b.show();</span><br><span class="line"></span><br><span class="line">  Base* pTest = <span class="keyword">new</span> CTest();</span><br><span class="line"></span><br><span class="line">  pTest-&gt;show();</span><br><span class="line">  <span class="keyword">delete</span> pTest;</span><br><span class="line">  pTest = <span class="literal">nullptr</span>; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="https://s3.ax1x.com/2021/02/07/yN4SM9.png"><br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span><span class="string">可以看到pTest的地址是0x0021ab4c，也是导入表的地址</span></span><br></pre></td></tr></table></figure></p><p><img src="https://s3.ax1x.com/2021/02/07/yN4FIK.png"><br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2.</span><span class="string">导入第一个地址：0x00211573，即</span> <span class="attr">CTest::show的地址</span></span><br></pre></td></tr></table></figure></p><p><img src="https://s3.ax1x.com/2021/02/07/yN4APO.png"><br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.</span><span class="string">切换到汇编验证一下</span></span><br></pre></td></tr></table></figure></p><p><img src="https://s3.ax1x.com/2021/02/07/yN4VRe.png"><br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4.</span><span class="string">这里eax就是CTest::show的地址，和</span> <span class="string">上边通过导入表看到地址是一样的，都是0x00211573，也就演示了虚表中，</span></span><br><span class="line"><span class="string">成员的存放方式</span></span><br></pre></td></tr></table></figure></p><a id="more"></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> C++ </category>
+          
+          <category> C++深入浅出系列 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C </tag>
+            
+            <tag> C++深入浅出系列 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>QT5.14 HTTP 运行结果失败</title>
       <link href="/QT5.14%20HTTP%20%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%A4%B1%E8%B4%A5/"/>
       <url>/QT5.14%20HTTP%20%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%A4%B1%E8%B4%A5/</url>
