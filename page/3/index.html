@@ -222,6 +222,85 @@
   <div class="meta" id="header-meta">
     
       <h2 class="title">
+          <a href="/14.5 用一个线程处理所有信号/">
+              
+                  14.5 用一个线程处理所有信号
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2019-04-09 星期二
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/linux/Linux高性能服务器编程/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              linux&nbsp;/&nbsp;Linux高性能服务器编程
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Simple error handling functions */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> handle_error_en(en, msg) \</span></span><br><span class="line">               <span class="keyword">do</span> &#123; errno = en; perror(msg); <span class="built_in">exit</span>(EXIT_FAILURE); &#125; <span class="keyword">while</span> (<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> *</span><br><span class="line">sig_thread(<span class="keyword">void</span> *arg)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"yyyyy, thread id is: %ld\n"</span>, pthread_self());</span><br><span class="line">    <span class="keyword">sigset_t</span> aset;</span><br><span class="line">    <span class="keyword">int</span> s, sig;</span><br><span class="line">    sigemptyset(&amp;aset);</span><br><span class="line">    sigaddset(&amp;aset, SIGQUIT);</span><br><span class="line">    sigaddset(&amp;aset, SIGUSR1);</span><br><span class="line">    <span class="comment">//s = pthread_sigmask(SIG_BLOCK, &amp;aset, NULL);</span></span><br><span class="line">    <span class="keyword">sigset_t</span> *<span class="built_in">set</span> = (<span class="keyword">sigset_t</span> *)arg;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        s = sigwait(<span class="built_in">set</span>, &amp;sig);</span><br><span class="line">        <span class="keyword">if</span> (s != <span class="number">0</span>)</span><br><span class="line">            handle_error_en(s, <span class="string">"sigwait"</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Signal handling thread got signal %d\n"</span>, sig);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">handler</span><span class="params">(<span class="keyword">int</span> arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"xxxxx, thread id is: %ld\n"</span>, pthread_self());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> thread;</span><br><span class="line">    <span class="keyword">sigset_t</span> <span class="built_in">set</span>;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Block SIGINT; other threads created by main() will inherit</span></span><br><span class="line"><span class="comment">*               a copy of the signal mask. */</span></span><br><span class="line"></span><br><span class="line">    signal(SIGQUIT, handler);</span><br><span class="line">    <span class="comment">//           if (s != 0)</span></span><br><span class="line">      <span class="comment">//             handle_error_en(s, "pthread_sigmask");</span></span><br><span class="line"></span><br><span class="line">    s = pthread_create(&amp;thread, <span class="literal">NULL</span>, &amp;sig_thread, (<span class="keyword">void</span> *)&amp;<span class="built_in">set</span>);</span><br><span class="line">    sigemptyset(&amp;<span class="built_in">set</span>);</span><br><span class="line">    sigaddset(&amp;<span class="built_in">set</span>, SIGQUIT);</span><br><span class="line">    sigaddset(&amp;<span class="built_in">set</span>, SIGUSR1);</span><br><span class="line">    <span class="comment">//s = pthread_sigmask(SIG_BLOCK, &amp;set, NULL);</span></span><br><span class="line">    <span class="keyword">if</span> (s != <span class="number">0</span>)</span><br><span class="line">        handle_error_en(s, <span class="string">"pthread_create"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"sub thread with id: %ld\n"</span>, thread);</span><br><span class="line">    <span class="comment">/* Main thread carries on to create other threads and/or do</span></span><br><span class="line"><span class="comment">*               other work */</span></span><br><span class="line"></span><br><span class="line">    pause();            <span class="comment">/* Dummy pause so we can test program */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+            <div class="readmore">
+                <a href="/14.5 用一个线程处理所有信号/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
+                
+                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
           <a href="/14.3 在多线程程序中调用fork函数/">
               
                   14.3 在多线程程序中调用fork函数
@@ -923,85 +1002,6 @@
             </div>
           
         
-          
-            <div class="post-wrapper">
-              <article class="post reveal ">
-    
-<section class="meta">
-  
-  
-  <div class="meta" id="header-meta">
-    
-      <h2 class="title">
-          <a href="/13.3 使用IPC_PRIVATE信号量/">
-              
-                  13.3 使用IPC_PRIVATE信号量
-              
-          </a>
-      </h2>
-    
-
-    <div class="new-meta-box">
-      
-        <div class="new-meta-item author">
-          <a href="https://calm2012.github.io/calm2012.github.io">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            calm2012
-          </a>
-        </div>
-      
-      
-        <div class="new-meta-item date">
-          <a class="notlink">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            2019-04-08 星期一
-          </a>
-        </div>
-      
-      
-        
-          
-          <div class="new-meta-item category">
-            <a href="/categories/linux/Linux高性能服务器编程/">
-              <i class="fas fa-folder-open" aria-hidden="true"></i>
-              linux&nbsp;/&nbsp;Linux高性能服务器编程
-            </a>
-          </div>
-        
-      
-      
-      
-    </div>
-    <hr>
-  </div>
-</section>
-
-    <section class="article typo">
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/sem.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span> semun</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">semid_ds</span>* <span class="title">buf</span>;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="keyword">int</span>* <span class="built_in">array</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">seminfo</span>* __<span class="title">buf</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pv</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> op)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span> <span class="title">sem_b</span>;</span></span><br><span class="line">    sem_b.sem_num = <span class="number">0</span>;</span><br><span class="line">    sem_b.sem_op = op;</span><br><span class="line">    sem_b.sem_flg = SEM_UNDO;</span><br><span class="line">    semop(sem_id, &amp;sem_b, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sem_id = semget(IPC_PRIVATE, <span class="number">1</span>, <span class="number">0666</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">union</span> semun sem_un;</span><br><span class="line">    sem_un.val = <span class="number">1</span>;</span><br><span class="line">    semctl(sem_id, <span class="number">0</span>, SETVAL, sem_un);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">pid_t</span> id = fork();</span><br><span class="line">    <span class="keyword">if</span> (id &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (id == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"child try to get binary sem\n"</span>);</span><br><span class="line">        pv(sem_id, <span class="number">-1</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"child get the sem and would release it after 5 seconds\n"</span>);</span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">        pv(sem_id, <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"parent try to get binary sem\n"</span>);</span><br><span class="line">        pv(sem_id, <span class="number">-1</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"parent get the sem and would release it after 5 seconds\n"</span>);</span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">        pv(sem_id, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    waitpid(id, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    semctl(sem_id, <span class="number">0</span>, IPC_RMID, sem_un);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-            <div class="readmore">
-                <a href="/13.3 使用IPC_PRIVATE信号量/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-                
-                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-            </div>
-          
-        
       
 
   </section>
@@ -1023,7 +1023,7 @@
                   </a>
               
               <p class="current">
-                  3 / 6
+                  3 / 7
               </p>
               
                   <a class="next" rel="next" href="/page/4/">

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Category: cmake | 光影星辰</title>
+  <title>光影星辰</title>
   
   
 
@@ -198,138 +198,10 @@
     <div class='container clearfix'>
         <div class='l_main'>
             
-    <script>
-        window.subData= { title:'分类 : cmake'}
-    </script>
-
 
 
 
   <section class="post-list">
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
       
 
 
@@ -350,9 +222,9 @@
   <div class="meta" id="header-meta">
     
       <h2 class="title">
-          <a href="/cmake生成vs工程/">
+          <a href="/CentOS启用echo服务/">
               
-                  cmake生成vs工程
+                  CentOS启用echo服务
               
           </a>
       </h2>
@@ -371,7 +243,7 @@
         <div class="new-meta-item date">
           <a class="notlink">
             <i class="fas fa-clock" aria-hidden="true"></i>
-            2020-03-14 星期六
+            2019-03-07 星期四
           </a>
         </div>
       
@@ -379,9 +251,9 @@
         
           
           <div class="new-meta-item category">
-            <a href="/categories/cmake/cmake/">
+            <a href="/categories/linux/">
               <i class="fas fa-folder-open" aria-hidden="true"></i>
-              cmake&nbsp;/&nbsp;cmake
+              linux
             </a>
           </div>
         
@@ -394,10 +266,22 @@
 </section>
 
     <section class="article typo">
-        <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="string">Configure</span> <span class="string">可能报路径错误，手动修改生成的路径</span></span><br><span class="line"><span class="number">2.</span> <span class="string">Generate生成vs工程</span></span><br></pre></td></tr></table></figure>
+        <ol>
+<li><p>查看echo服务是否开启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -l | grep <span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置：<br> vim /etc/xinetd.d/echo-stream，把 disable = yes 改为 disable = no</p>
+</li>
+<li><p>重启xinetd服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service xinetd restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再次查看echo服务是否开启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -l | grep <span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
         
             <div class="readmore">
-                <a href="/cmake生成vs工程/" class="flat-box">
+                <a href="/CentOS启用echo服务/" class="flat-box">
                     <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
                     阅读全文
                 </a>
@@ -407,7 +291,7 @@
         
             <div class="full-width auto-padding tags">
                 
-                    <a href="/tags/cmake/"><i class="fas fa-hashtag fa-fw"></i>cmake</a>
+                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
                 
             </div>
         
@@ -425,6 +309,25 @@
 
 
 
+
+  
+      <br>
+      <div class="prev-next">
+          <div class="prev-next">
+              
+                  <a class="prev" rel="prev" href="/page/6/">
+                      <section class="post prev">
+                          <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
+                      </section>
+                  </a>
+              
+              <p class="current">
+                  7 / 7
+              </p>
+              
+
+          </div>
+      </div>
 
   
 
