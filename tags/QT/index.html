@@ -332,6 +332,12 @@
         
           
         
+          
+        
+          
+        
+          
+        
       
 
 
@@ -341,6 +347,110 @@
       
 
       
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
+          <a href="/Windows QT5.15.1 编译/">
+              
+                  Windows QT5.15.1 编译
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2021-11-15 星期一
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/QT/QT/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              QT&nbsp;/&nbsp;QT
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <h2 id="编译环境："><a href="#编译环境：" class="headerlink" title="编译环境："></a>编译环境：</h2><blockquote>
+<ul>
+<li>操作系统：Windows 10</li>
+<li>编译器：Microsoft Visual Studio Enterprise 2017 Version 15.9.41</li>
+</ul>
+</blockquote>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
+<li>建议Windows 10 在 时间和语言–&gt;语言和区域–&gt;语言 设置为英文，在 时间和语言–&gt;语言和区域–&gt;区域设置为美国避免一些奇怪的错误。</li>
+<li>VS建议升级最新版本，之前遇到由于VS版本低导致各种编译错误，升级VS后成功编译。</li>
+<li>如果QT源码，需要解压，建议安装最新WinRar 防止解压出错。之前遇到因为WinRar版本问题而发生解压错误。</li>
+</ul>
+<hr>
+<p>#####下面还需要一些准备工作：<br><em>1. 安装python2.7.18，并检查在Windos系统【环境变量】path中对应的路径设置</em><br>然后在widnows cmd中输入：python –version<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Python 2.7.18</span><br></pre></td></tr></table></figure></p>
+<p>检测安装的版本号，以及是否安装成功。<br><em>2. 安装安装ruby，并检查在Windos系统【环境变量】path中对应的路径设置</em><br>然后在widnows cmd中输入：ruby –version<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [i386-mingw32]</span><br></pre></td></tr></table></figure></p>
+<p><em>3. 安装安装perl，并检查在Windos系统【环境变量】path中对应的路径设置</em><br>然后在widnows cmd中输入：perl –version<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is perl 5, version 32, subversion 0 (v5.32.0) built <span class="keyword">for</span> MSWin32-x64-multi-thread</span><br></pre></td></tr></table></figure></p>
+<p><em>4. 编译oepnssl，编译qt需要用到</em><br>oepnssl源码地址：<a href="https://github.com/openssl/openssl" target="_blank" rel="noopener">https://github.com/openssl/openssl</a><br>编译之前找到configdata.pm和makefile两个文件， 用记事本打开， 搜索 “/MD” 字符串， 替换成 “/MT”,编译选项修改MT<br>编译配置项：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl Configure VC-WIN32 shared no-asm --prefix=<span class="string">"g:\SDK\OpenSSL\openssl-1.1.1"</span> --openssldir=<span class="string">"g:\SDK\OpenSSL\ssl"</span></span><br></pre></td></tr></table></figure></p>
+<p>参数说明：<br>–prefix是Openssl编译完后的安装路径。<br>–openssldir是Openssl编译完后的生成的配置文件的安装路径。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a. 打开VS2017中的vcvars32.bat</span><br><span class="line">b. 然后输入 nmake 开始编译。</span><br><span class="line">c. 输入 nmake install 归档头文件等到安装路径</span><br></pre></td></tr></table></figure></p>
+<p><em>5. 下载depot_tools，下载地址：<a href="https://chromium.googlesource.com/chromium/tools/depot_tools.git" target="_blank" rel="noopener">https://chromium.googlesource.com/chromium/tools/depot_tools.git</a></em><br>并在Windos系统【环境变量】path中设置对应的路径。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如：D:\SDK\depot_tools</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>终于可以开始编译QT了<br>QT5.15.1源码下载：<a href="https://download.qt.io/archive/qt/5.15/5.15.1/single/" target="_blank" rel="noopener">https://download.qt.io/archive/qt/5.15/5.15.1/single/</a><br>Windows编译配置项：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure -opensource -platform win32-msvc2017 -developer-build -mp -debug-and-release -force-debug-info -v -confirm-license OPENSSL_PREFIX=D:\SDK\oepnssl\1.1.1g\debug_md -openssl-linked -I  D:\SDK\oepnssl\1.1.1g\debug_md\include -L D:\SDK\oepnssl\1.1.1g\debug_md\lib OPENSSL_LIBS=<span class="string">"libssl.lib libcrypto.lib Ws2_32.lib  Gdi32.lib Advapi32.lib Crypt32.lib User32.lib"</span> -webengine-proprietary-codecs -prefix D:\SDK\build\qt5.15.1</span><br></pre></td></tr></table></figure></p>
+<p>MacOS编译配置项:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure -opensource -platform macx-clang -developer-build -debug-and-release -force-debug-info -v -confirm-license -skip qtwebengine -prefix ~/SDK/QT/5.15.1/macos</span><br></pre></td></tr></table></figure></p>
+<p>IOS编译配置项:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure -opensource -xplatform macx-ios-clang -developer-build -debug-and-release -force-debug-info -confirm-license -nomake examples -nomake tests -skip qtwebengine -prefix ~/SDK/QT/5.15.1/ios</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a. 打开VS2017中的 x64_x86 Cross Tools Command Prompt <span class="keyword">for</span> VS 2017</span><br><span class="line">b. 输入nmake</span><br><span class="line">c. 输入nmake install</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mac和ios都下面命令：</span><br><span class="line">a. 打开终端，进入到源码目录</span><br><span class="line">b. 输入make 或者 make -j20（j20表示用20个线程构建，加快构建速度，最大线程数可以参考cpu的线程数）</span><br><span class="line">c. 输入make install</span><br></pre></td></tr></table></figure>
+<p>注意：如果需要重新编译可以删除<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">config.cache</span></span><br><span class="line"><span class="string">.qmake.cache</span></span><br><span class="line"><span class="string">config.tests</span></span><br></pre></td></tr></table></figure></p>
+<p>重新开始编译。</p>
+<hr>
+<p>#####参考文章<br>Qt for Windows - Building from Source：<br><a href="https://doc.qt.io/qt-5/windows-building.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/windows-building.html</a><br>Qt for Windows - Requirements：<br><a href="https://doc.qt.io/qt-5/windows-requirements.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/windows-requirements.html</a><br>Qt for Windows：<br><a href="https://doc.qt.io/qt-5/windows.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/windows.html</a><br>
+        
+            <div class="readmore">
+                <a href="/Windows QT5.15.1 编译/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/QT/"><i class="fas fa-hashtag fa-fw"></i>QT</a>
+                
+            </div>
+        
+    </p></section>
+</article>
+
+            </div>
+          
         
           
             <div class="post-wrapper">
@@ -509,9 +619,13 @@
         
           <li><a class="flat-box child" title="/categories/C/C-深入浅出系列/" href="/categories/C/C-深入浅出系列/"><div class="name">C++深入浅出系列</div><div class="badge">(2)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/QT/" href="/categories/QT/"><div class="name">QT</div><div class="badge">(1)</div></a></li>
+          <li><a class="flat-box" title="/categories/MacOS/" href="/categories/MacOS/"><div class="name">MacOS</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box child" title="/categories/QT/QT/" href="/categories/QT/QT/"><div class="name">QT</div><div class="badge">(1)</div></a></li>
+          <li><a class="flat-box child" title="/categories/MacOS/CEF/" href="/categories/MacOS/CEF/"><div class="name">CEF</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/QT/" href="/categories/QT/"><div class="name">QT</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/QT/QT/" href="/categories/QT/QT/"><div class="name">QT</div><div class="badge">(2)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Resharper/" href="/categories/Resharper/"><div class="name">Resharper</div><div class="badge">(1)</div></a></li>
         
@@ -543,11 +657,13 @@
         
           <li><a class="flat-box" title="/categories/跨平台/" href="/categories/跨平台/"><div class="name">跨平台</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/软件设置/" href="/categories/软件设置/"><div class="name">软件设置</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box" title="/categories/软件设置/" href="/categories/软件设置/"><div class="name">软件设置</div><div class="badge">(4)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/软件设置/Everything/" href="/categories/软件设置/Everything/"><div class="name">Everything</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/软件设置/VM/" href="/categories/软件设置/VM/"><div class="name">VM</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/软件设置/VS/" href="/categories/软件设置/VS/"><div class="name">VS</div><div class="badge">(1)</div></a></li>
         
       </ul>
     </div>
@@ -569,7 +685,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/QT/" style="font-size: 14px; color: #999">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
+      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/CEF/" style="font-size: 14px; color: #999">CEF</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/MacOS/" style="font-size: 14px; color: #999">MacOS</a> <a href="/tags/QT/" style="font-size: 16.5px; color: #888">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/VS/" style="font-size: 14px; color: #999">VS</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
     </div>
   </section>
 

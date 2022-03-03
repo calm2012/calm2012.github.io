@@ -222,6 +222,243 @@
   <div class="meta" id="header-meta">
     
       <h2 class="title">
+          <a href="/9.7 聊天室服务端/">
+              
+                  9.7 聊天室服务端
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2019-04-08 星期一
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/linux/Linux高性能服务器编程/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              linux&nbsp;/&nbsp;Linux高性能服务器编程
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _GNU_SOURCE 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;poll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> USER_LIMIT 5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFFER_SIZE 64</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FD_LIMIT 65535</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">client_data</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    sockaddr_in address;</span><br><span class="line">    <span class="keyword">char</span>* write_buf;</span><br><span class="line">    <span class="keyword">char</span> buf[BUFFER_SIZE];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setnonblocking</span><span class="params">(<span class="keyword">int</span> fd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> old_option = fcntl(fd, F_GETFL);</span><br><span class="line">    <span class="keyword">int</span> new_option = old_option | O_NONBLOCK;</span><br><span class="line">    fcntl(fd, F_SETFL, new_option);</span><br><span class="line">    <span class="keyword">return</span> old_option;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc &lt;= <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"usage: %s ip_address port_number\n"</span>, basename(argv[<span class="number">0</span>]));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* ip = argv[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> port = atoi(argv[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">address</span>;</span></span><br><span class="line">    bzero(&amp;address, <span class="keyword">sizeof</span>(address));</span><br><span class="line">    address.sin_family = AF_INET;</span><br><span class="line">    inet_pton(AF_INET, ip, &amp;address.sin_addr);</span><br><span class="line">    address.sin_port = htons(port);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> listenfd = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    assert(listenfd &gt;= <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    ret = bind(listenfd, (struct sockaddr*)&amp;address, <span class="keyword">sizeof</span>(address));</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    ret = listen(listenfd, <span class="number">5</span>);</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    client_data* users = <span class="keyword">new</span> client_data[FD_LIMIT];</span><br><span class="line">    pollfd fds[USER_LIMIT + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> user_counter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= USER_LIMIT; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        fds[i].fd = <span class="number">-1</span>;</span><br><span class="line">        fds[i].events = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    fds[<span class="number">0</span>].fd = listenfd;</span><br><span class="line">    fds[<span class="number">0</span>].events = POLLIN | POLLERR;</span><br><span class="line">    fds[<span class="number">0</span>].revents = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ret = poll(fds, user_counter + <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span> (ret &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"poll failure\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; user_counter + <span class="number">1</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ((fds[i].fd == listenfd) &amp;&amp; (fds[i].revents &amp; POLLIN))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">client_address</span>;</span></span><br><span class="line">                <span class="keyword">socklen_t</span> client_addrlength = <span class="keyword">sizeof</span>(client_address);</span><br><span class="line">                <span class="keyword">int</span> connfd = accept(listenfd, (struct sockaddr*)&amp;client_address, &amp;client_addrlength);</span><br><span class="line">                <span class="keyword">if</span> (connfd &lt; <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"errno is: %d\n"</span>, errno);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (user_counter &gt;= USER_LIMIT)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">const</span> <span class="keyword">char</span>* info = <span class="string">"too many users\n"</span>;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"%s"</span>, info);</span><br><span class="line">                    send(connfd, info, <span class="built_in">strlen</span>(info), <span class="number">0</span>);</span><br><span class="line">                    close(connfd);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                user_counter++;</span><br><span class="line">                users[connfd].address = client_address;</span><br><span class="line">                setnonblocking(connfd);</span><br><span class="line">                fds[user_counter].fd = connfd;</span><br><span class="line">                fds[user_counter].events = POLLIN | POLLRDHUP | POLLERR;</span><br><span class="line">                fds[user_counter].revents = <span class="number">0</span>;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"comes a new user, now have %d users\n"</span>, user_counter);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (fds[i].revents &amp; POLLERR)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"get an error from %d\n"</span>, fds[i].fd);</span><br><span class="line">                <span class="keyword">char</span> errors[<span class="number">100</span>];</span><br><span class="line">                <span class="built_in">memset</span>(errors, <span class="string">'\0'</span>, <span class="number">100</span>);</span><br><span class="line">                <span class="keyword">socklen_t</span> length = <span class="keyword">sizeof</span>(errors);</span><br><span class="line">                <span class="keyword">if</span> (getsockopt(fds[i].fd, SOL_SOCKET, SO_ERROR, &amp;errors, &amp;length) &lt; <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"get socket option failed\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (fds[i].revents &amp; POLLRDHUP)</span><br><span class="line">            &#123;</span><br><span class="line">                users[fds[i].fd] = users[fds[user_counter].fd];</span><br><span class="line">                close(fds[i].fd);</span><br><span class="line">                fds[i] = fds[user_counter];</span><br><span class="line">                i--;</span><br><span class="line">                user_counter--;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"a client left\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (fds[i].revents &amp; POLLIN)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> connfd = fds[i].fd;</span><br><span class="line">                <span class="built_in">memset</span>(users[connfd].buf, <span class="string">'\0'</span>, BUFFER_SIZE);</span><br><span class="line">                ret = recv(connfd, users[connfd].buf, BUFFER_SIZE - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"get %d bytes of client data %s from %d\n"</span>, ret, users[connfd].buf, connfd);</span><br><span class="line">                <span class="keyword">if</span> (ret &lt; <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (errno != EAGAIN)</span><br><span class="line">                    &#123;</span><br><span class="line">                        close(connfd);</span><br><span class="line">                        users[fds[i].fd] = users[fds[user_counter].fd];</span><br><span class="line">                        fds[i] = fds[user_counter];</span><br><span class="line">                        i--;</span><br><span class="line">                        user_counter--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (ret == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"code should not come to here\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= user_counter; ++j)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (fds[j].fd == connfd)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="keyword">continue</span>;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        fds[j].events |= ~POLLIN;</span><br><span class="line">                        fds[j].events |= POLLOUT;</span><br><span class="line">                        users[fds[j].fd].write_buf = users[connfd].buf;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (fds[i].revents &amp; POLLOUT)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> connfd = fds[i].fd;</span><br><span class="line">                <span class="keyword">if</span> (!users[connfd].write_buf)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                ret = send(connfd, users[connfd].write_buf, <span class="built_in">strlen</span>(users[connfd].write_buf), <span class="number">0</span>);</span><br><span class="line">                users[connfd].write_buf = <span class="literal">NULL</span>;</span><br><span class="line">                fds[i].events |= ~POLLOUT;</span><br><span class="line">                fds[i].events |= POLLIN;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span>[] users;</span><br><span class="line">    close(listenfd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+            <div class="readmore">
+                <a href="/9.7 聊天室服务端/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
+                
+                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
+          <a href="/9.6 聊天室客户端/">
+              
+                  9.6 聊天室客户端
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2019-04-08 星期一
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/linux/Linux高性能服务器编程/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              linux&nbsp;/&nbsp;Linux高性能服务器编程
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _GNU_SOURCE 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;poll.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFFER_SIZE 64</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc &lt;= <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"usage: %s ip_address port_number\n"</span>, basename(argv[<span class="number">0</span>]));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* ip = argv[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> port = atoi(argv[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">server_address</span>;</span></span><br><span class="line">    bzero(&amp;server_address, <span class="keyword">sizeof</span>(server_address));</span><br><span class="line">    server_address.sin_family = AF_INET;</span><br><span class="line">    inet_pton(AF_INET, ip, &amp;server_address.sin_addr);</span><br><span class="line">    server_address.sin_port = htons(port);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> sockfd = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    assert(sockfd &gt;= <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (connect(sockfd, (struct sockaddr*)&amp;server_address, <span class="keyword">sizeof</span>(server_address)) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"connection failed\n"</span>);</span><br><span class="line">        close(sockfd);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pollfd fds[<span class="number">2</span>];</span><br><span class="line">    fds[<span class="number">0</span>].fd = <span class="number">0</span>;</span><br><span class="line">    fds[<span class="number">0</span>].events = POLLIN;</span><br><span class="line">    fds[<span class="number">0</span>].revents = <span class="number">0</span>;</span><br><span class="line">    fds[<span class="number">1</span>].fd = sockfd;</span><br><span class="line">    fds[<span class="number">1</span>].events = POLLIN | POLLRDHUP;</span><br><span class="line">    fds[<span class="number">1</span>].revents = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> read_buf[BUFFER_SIZE];</span><br><span class="line">    <span class="keyword">int</span> pipefd[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">int</span> ret = pipe(pipefd);</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ret = poll(fds, <span class="number">2</span>, <span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span> (ret &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"poll failure\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (fds[<span class="number">1</span>].revents &amp; POLLRDHUP)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"server close the connection\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (fds[<span class="number">1</span>].revents &amp; POLLIN)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">memset</span>(read_buf, <span class="string">'\0'</span>, BUFFER_SIZE);</span><br><span class="line">            recv(fds[<span class="number">1</span>].fd, read_buf, BUFFER_SIZE - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, read_buf);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (fds[<span class="number">0</span>].revents &amp; POLLIN)</span><br><span class="line">        &#123;</span><br><span class="line">            ret = splice(<span class="number">0</span>, <span class="literal">NULL</span>, pipefd[<span class="number">1</span>], <span class="literal">NULL</span>, <span class="number">32768</span>, SPLICE_F_MORE | SPLICE_F_MOVE);</span><br><span class="line">            ret = splice(pipefd[<span class="number">0</span>], <span class="literal">NULL</span>, sockfd, <span class="literal">NULL</span>, <span class="number">32768</span>, SPLICE_F_MORE | SPLICE_F_MOVE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(sockfd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+            <div class="readmore">
+                <a href="/9.6 聊天室客户端/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
+                
+                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
+          <a href="/9.5 非阻塞connect/">
+              
+                  9.5 非阻塞connect
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2019-04-08 星期一
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/linux/Linux高性能服务器编程/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              linux&nbsp;/&nbsp;Linux高性能服务器编程
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFFER_SIZE 1023</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setnonblocking</span><span class="params">( <span class="keyword">int</span> fd )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> old_option = fcntl( fd, F_GETFL );</span><br><span class="line">    <span class="keyword">int</span> new_option = old_option | O_NONBLOCK;</span><br><span class="line">    fcntl( fd, F_SETFL, new_option );</span><br><span class="line">    <span class="keyword">return</span> old_option;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">unblock_connect</span><span class="params">( <span class="keyword">const</span> <span class="keyword">char</span>* ip, <span class="keyword">int</span> port, <span class="keyword">int</span> time )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">address</span>;</span></span><br><span class="line">    bzero( &amp;address, <span class="keyword">sizeof</span>( address ) );</span><br><span class="line">    address.sin_family = AF_INET;</span><br><span class="line">    inet_pton( AF_INET, ip, &amp;address.sin_addr );</span><br><span class="line">    address.sin_port = htons( port );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> sockfd = socket( PF_INET, SOCK_STREAM, <span class="number">0</span> );</span><br><span class="line">    <span class="keyword">int</span> fdopt = setnonblocking( sockfd );</span><br><span class="line">    ret = connect( sockfd, ( struct sockaddr* )&amp;address, <span class="keyword">sizeof</span>( address ) );</span><br><span class="line">    <span class="keyword">if</span> ( ret == <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"connect with server immediately\n"</span> );</span><br><span class="line">        fcntl( sockfd, F_SETFL, fdopt );</span><br><span class="line">        <span class="keyword">return</span> sockfd;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( errno != EINPROGRESS )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"unblock connect not support\n"</span> );</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fd_set readfds;</span><br><span class="line">    fd_set writefds;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">timeout</span>;</span></span><br><span class="line"></span><br><span class="line">    FD_ZERO( &amp;readfds );</span><br><span class="line">    FD_SET( sockfd, &amp;writefds );</span><br><span class="line"></span><br><span class="line">    timeout.tv_sec = time;</span><br><span class="line">    timeout.tv_usec = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    ret = select( sockfd + <span class="number">1</span>, <span class="literal">NULL</span>, &amp;writefds, <span class="literal">NULL</span>, &amp;timeout );</span><br><span class="line">    <span class="keyword">if</span> ( ret &lt;= <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"connection time out\n"</span> );</span><br><span class="line">        close( sockfd );</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( ! FD_ISSET( sockfd, &amp;writefds  ) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"no events on sockfd found\n"</span> );</span><br><span class="line">        close( sockfd );</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> error = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">socklen_t</span> length = <span class="keyword">sizeof</span>( error );</span><br><span class="line">    <span class="keyword">if</span>( getsockopt( sockfd, SOL_SOCKET, SO_ERROR, &amp;error, &amp;length ) &lt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"get socket option failed\n"</span> );</span><br><span class="line">        close( sockfd );</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( error != <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"connection failed after select with the error: %d \n"</span>, error );</span><br><span class="line">        close( sockfd );</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">"connection ready after select with the socket: %d \n"</span>, sockfd );</span><br><span class="line">    fcntl( sockfd, F_SETFL, fdopt );</span><br><span class="line">    <span class="keyword">return</span> sockfd;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( argc &lt;= <span class="number">2</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"usage: %s ip_address port_number\n"</span>, basename( argv[<span class="number">0</span>] ) );</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* ip = argv[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> port = atoi( argv[<span class="number">2</span>] );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> sockfd = unblock_connect( ip, port, <span class="number">10</span> );</span><br><span class="line">    <span class="keyword">if</span> ( sockfd &lt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    shutdown( sockfd, SHUT_WR );</span><br><span class="line">    sleep( <span class="number">200</span> );</span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">"send data out\n"</span> );</span><br><span class="line">    send( sockfd, <span class="string">"abc"</span>, <span class="number">3</span>, <span class="number">0</span> );</span><br><span class="line">    <span class="comment">//sleep( 600 );</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+            <div class="readmore">
+                <a href="/9.5 非阻塞connect/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
+                
+                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
           <a href="/9.4 epoll epolloneshot事件/">
               
                   9.4 epoll epolloneshot事件
@@ -765,243 +1002,6 @@
             </div>
           
         
-          
-            <div class="post-wrapper">
-              <article class="post reveal ">
-    
-<section class="meta">
-  
-  
-  <div class="meta" id="header-meta">
-    
-      <h2 class="title">
-          <a href="/把标准输出重定向到一个网络连接/">
-              
-                  把标准输出重定向到一个网络连接
-              
-          </a>
-      </h2>
-    
-
-    <div class="new-meta-box">
-      
-        <div class="new-meta-item author">
-          <a href="https://calm2012.github.io/calm2012.github.io">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            calm2012
-          </a>
-        </div>
-      
-      
-        <div class="new-meta-item date">
-          <a class="notlink">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            2019-04-02 星期二
-          </a>
-        </div>
-      
-      
-        
-          
-          <div class="new-meta-item category">
-            <a href="/categories/linux/Linux高性能服务器编程/">
-              <i class="fas fa-folder-open" aria-hidden="true"></i>
-              linux&nbsp;/&nbsp;Linux高性能服务器编程
-            </a>
-          </div>
-        
-      
-      
-      
-    </div>
-    <hr>
-  </div>
-</section>
-
-    <section class="article typo">
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc &lt;= <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"usage: %s ip_address port_number\n"</span>, basename(argv[<span class="number">0</span>]));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* ip = argv[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> port = atoi(argv[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">address</span> = &#123;</span><span class="number">0</span>&#125;;</span><br><span class="line">    address.sin_family = AF_INET;</span><br><span class="line">    inet_pton(AF_INET, ip, &amp;address.sin_addr);</span><br><span class="line">    address.sin_port = htons(port);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> sock = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    assert(sock &gt;= <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = bind(sock, (struct sockaddr*)&amp;address, <span class="keyword">sizeof</span>(address));</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    ret = listen(sock, <span class="number">5</span>);</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">client</span>;</span></span><br><span class="line">    <span class="keyword">socklen_t</span> client_addrlength = <span class="keyword">sizeof</span>(client);</span><br><span class="line">    <span class="keyword">int</span> connfd = accept(sock, (struct sockaddr*)&amp;client, &amp;client_addrlength);</span><br><span class="line">    <span class="keyword">if</span> (connfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"errno is: %d\n"</span>, errno);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 关闭标准文件输入</span></span><br><span class="line">        close(STDOUT_FILENO);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把标准输出重定向到一个网络连接</span></span><br><span class="line">        dup(connfd);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"abcd\n"</span>);</span><br><span class="line">        close(connfd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(sock);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-            <div class="readmore">
-                <a href="/把标准输出重定向到一个网络连接/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-                
-                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-            </div>
-          
-        
-          
-            <div class="post-wrapper">
-              <article class="post reveal ">
-    
-<section class="meta">
-  
-  
-  <div class="meta" id="header-meta">
-    
-      <h2 class="title">
-          <a href="/socket重用本地地址/">
-              
-                  socket重用本地地址
-              
-          </a>
-      </h2>
-    
-
-    <div class="new-meta-box">
-      
-        <div class="new-meta-item author">
-          <a href="https://calm2012.github.io/calm2012.github.io">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            calm2012
-          </a>
-        </div>
-      
-      
-        <div class="new-meta-item date">
-          <a class="notlink">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            2019-03-29 星期五
-          </a>
-        </div>
-      
-      
-        
-          
-          <div class="new-meta-item category">
-            <a href="/categories/linux/Linux高性能服务器编程/">
-              <i class="fas fa-folder-open" aria-hidden="true"></i>
-              linux&nbsp;/&nbsp;Linux高性能服务器编程
-            </a>
-          </div>
-        
-      
-      
-      
-    </div>
-    <hr>
-  </div>
-</section>
-
-    <section class="article typo">
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc &lt;= <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"usage: %s ip_address port_number\n"</span>, basename(argv[<span class="number">0</span>]));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* ip = argv[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> port = atoi(argv[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> sock = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    assert(sock &gt;= <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> reuse = <span class="number">1</span>;</span><br><span class="line">    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &amp;reuse, <span class="keyword">sizeof</span>(reuse));</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">address</span> = &#123;</span><span class="number">0</span>&#125;;</span><br><span class="line">    address.sin_family = AF_INET;</span><br><span class="line">    inet_pton(AF_INET, ip, &amp;address.sin_addr);</span><br><span class="line">    address.sin_port = htons(port);</span><br><span class="line">    <span class="keyword">int</span> ret = bind(sock, (struct sockaddr*)&amp;address, <span class="keyword">sizeof</span>(address));</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    ret = listen(sock, <span class="number">5</span>);</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">client</span>;</span></span><br><span class="line">    <span class="keyword">socklen_t</span> client_addrlength = <span class="keyword">sizeof</span>(client);</span><br><span class="line">    <span class="keyword">int</span> connfd = accept(sock, (struct sockaddr*)&amp;client, &amp;client_addrlength);</span><br><span class="line">    <span class="keyword">if</span> (connfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"errno is: %d\n"</span>, errno);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">char</span> remote[INET_ADDRSTRLEN];</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"connected with ip: %s and port: %d\n"</span>,</span><br><span class="line">            inet_ntop(AF_INET, &amp;client.sin_addr, remote, INET_ADDRSTRLEN), ntohs(client.sin_port));</span><br><span class="line">        close(connfd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(sock);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-            <div class="readmore">
-                <a href="/socket重用本地地址/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-                
-                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-            </div>
-          
-        
-          
-            <div class="post-wrapper">
-              <article class="post reveal ">
-    
-<section class="meta">
-  
-  
-  <div class="meta" id="header-meta">
-    
-      <h2 class="title">
-          <a href="/字节序/">
-              
-                  Linux字节序
-              
-          </a>
-      </h2>
-    
-
-    <div class="new-meta-box">
-      
-        <div class="new-meta-item author">
-          <a href="https://calm2012.github.io/calm2012.github.io">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            calm2012
-          </a>
-        </div>
-      
-      
-        <div class="new-meta-item date">
-          <a class="notlink">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            2019-03-29 星期五
-          </a>
-        </div>
-      
-      
-        
-          
-          <div class="new-meta-item category">
-            <a href="/categories/linux/Linux高性能服务器编程/">
-              <i class="fas fa-folder-open" aria-hidden="true"></i>
-              linux&nbsp;/&nbsp;Linux高性能服务器编程
-            </a>
-          </div>
-        
-      
-      
-      
-    </div>
-    <hr>
-  </div>
-</section>
-
-    <section class="article typo">
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">byteorder</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">union</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">short</span> value;</span><br><span class="line">        <span class="keyword">char</span> union_bytes[<span class="keyword">sizeof</span>(<span class="keyword">short</span>)];</span><br><span class="line">    &#125; test;</span><br><span class="line">    test.value = <span class="number">0x0102</span>;</span><br><span class="line">    <span class="keyword">if</span> ((test.union_bytes[<span class="number">0</span>] == <span class="number">1</span>) &amp;&amp; (test.union_bytes[<span class="number">1</span>] == <span class="number">2</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"big endian\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ((test.union_bytes[<span class="number">0</span>] == <span class="number">2</span>) &amp;&amp; (test.union_bytes[<span class="number">1</span>] == <span class="number">1</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"little endian\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"unknown...\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    byteorder();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-            <div class="readmore">
-                <a href="/字节序/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-                
-                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-            </div>
-          
-        
       
 
   </section>
@@ -1118,9 +1118,13 @@
         
           <li><a class="flat-box child" title="/categories/C/C-深入浅出系列/" href="/categories/C/C-深入浅出系列/"><div class="name">C++深入浅出系列</div><div class="badge">(2)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/QT/" href="/categories/QT/"><div class="name">QT</div><div class="badge">(1)</div></a></li>
+          <li><a class="flat-box" title="/categories/MacOS/" href="/categories/MacOS/"><div class="name">MacOS</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box child" title="/categories/QT/QT/" href="/categories/QT/QT/"><div class="name">QT</div><div class="badge">(1)</div></a></li>
+          <li><a class="flat-box child" title="/categories/MacOS/CEF/" href="/categories/MacOS/CEF/"><div class="name">CEF</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/QT/" href="/categories/QT/"><div class="name">QT</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/QT/QT/" href="/categories/QT/QT/"><div class="name">QT</div><div class="badge">(2)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Resharper/" href="/categories/Resharper/"><div class="name">Resharper</div><div class="badge">(1)</div></a></li>
         
@@ -1152,11 +1156,13 @@
         
           <li><a class="flat-box" title="/categories/跨平台/" href="/categories/跨平台/"><div class="name">跨平台</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/软件设置/" href="/categories/软件设置/"><div class="name">软件设置</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box" title="/categories/软件设置/" href="/categories/软件设置/"><div class="name">软件设置</div><div class="badge">(4)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/软件设置/Everything/" href="/categories/软件设置/Everything/"><div class="name">Everything</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/软件设置/VM/" href="/categories/软件设置/VM/"><div class="name">VM</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/软件设置/VS/" href="/categories/软件设置/VS/"><div class="name">VS</div><div class="badge">(1)</div></a></li>
         
       </ul>
     </div>
@@ -1178,7 +1184,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/QT/" style="font-size: 14px; color: #999">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
+      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/CEF/" style="font-size: 14px; color: #999">CEF</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/MacOS/" style="font-size: 14px; color: #999">MacOS</a> <a href="/tags/QT/" style="font-size: 16.5px; color: #888">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/VS/" style="font-size: 14px; color: #999">VS</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
     </div>
   </section>
 
