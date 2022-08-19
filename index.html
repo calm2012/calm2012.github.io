@@ -334,6 +334,8 @@
         
           
         
+          
+        
       
 
 
@@ -343,6 +345,247 @@
       
 
       
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
+          <a href="/GoogleTest环境配置以及应用/">
+              
+                  GoogleTest环境配置以及应用
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2022-08-20 星期六
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/自动化测试/GoogleTest/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              自动化测试&nbsp;/&nbsp;GoogleTest
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <h1 id="GoogleTest环境配置以及应用"><a href="#GoogleTest环境配置以及应用" class="headerlink" title="GoogleTest环境配置以及应用"></a>GoogleTest环境配置以及应用</h1><ul>
+<li><a href="#googletest环境配置以及应用">GoogleTest环境配置以及应用</a><ul>
+<li><a href="#1-googletest源码编译">1 GoogleTest源码编译：</a><ul>
+<li><a href="#11-windows下googletest的编译方法包含example">1.1 Windows下GoogleTest的编译方法（包含example）:</a></li>
+<li><a href="#12-linux下googletest的编译方法包含example">1.2 Linux下GoogleTest的编译方法（包含example）:</a></li>
+<li><a href="#编译参数含义说明">编译参数含义说明：</a></li>
+</ul>
+</li>
+<li><a href="#2-googletest常用测试宏">2 GoogleTest常用测试宏：</a></li>
+<li><a href="#3-googletest使用步骤">3 GoogleTest使用步骤</a><ul>
+<li><a href="#31-以sample1为例">3.1 以sample1为例：</a><ul>
+<li><a href="#311-sample1目录结构如下">3.1.1 sample1目录结构如下：</a></li>
+<li><a href="#312编译构建命令">3.1.2编译构建命令：</a></li>
+</ul>
+</li>
+<li><a href="#32-再看在messagepush工程中如何引入googletest">3.2 再看在MessagePush工程中如何引入GoogleTest</a><ul>
+<li><a href="#321-最后在你的工程里如cmakeliststxt中引入">3.2.1 最后在你的工程里如CMakeLists.txt中引入：</a></li>
+</ul>
+</li>
+<li><a href="#33-googletest常用测试宏testtest_ftest_ptyped_test的一般使用场景">3.3 GoogleTest常用测试宏(TEST/TEST_F/TEST_P/TYPED_TEST)的一般使用场景:</a></li>
+<li><a href="#34-其它参考网址">3.4 其它参考网址:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="1-GoogleTest源码编译："><a href="#1-GoogleTest源码编译：" class="headerlink" title="1 GoogleTest源码编译："></a>1 GoogleTest源码编译：</h2><p>GoogleTest代码仓库URL:<br><a href="https://github.com/google/googletest.git" target="_blank" rel="noopener">https://github.com/google/googletest.git</a><br>下载源代码：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --branch release-1.12.1 https://github.com/google/googletest.git googletest</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-1-Windows下GoogleTest的编译方法（包含example）"><a href="#1-1-Windows下GoogleTest的编译方法（包含example）" class="headerlink" title="1.1 Windows下GoogleTest的编译方法（包含example）:"></a>1.1 Windows下GoogleTest的编译方法（包含example）:</h3><p>这里选择的编译器是Visual Studio 16 2019，需要用别的版本的编译器，请自行重新指定一下编译器版本：</p>
+<blockquote>
+<p>VS2022为：”Visual Studio 17 2022”<br>VS2019为：”Visual Studio 16 2019”<br>VS2017为：”Visual Studio 15 2017”<br>VS2015为：”Visual Studio 14 2015”<br>VS2013为：”Visual Studio 12 2013”<br>VS2012为：”Visual Studio 11 2012”<br>VS2010为：”Visual Studio 10 2010”</p>
+</blockquote>
+<p>1.1.1 debug版本编译：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir debug    <span class="comment"># 在源码根目录创建一个名叫debug的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> debug       <span class="comment"># 进入debug文件夹</span></span><br><span class="line">cmake <span class="string">"../"</span> -DCMAKE_CONFIGURATION_TYPES=Debug -Dgtest_force_shared_crt=ON -Dgtest_build_samples=ON -DCMAKE_INSTALL_PREFIX=D:/SDK/GoogleTest/v1.10.x/debug -G <span class="string">"Visual Studio 16 2019"</span> -A x64</span><br></pre></td></tr></table></figure></p>
+<p>1.1.2 release版本编译：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir release   <span class="comment"># 在源码根目录创建一个名叫release的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> release      <span class="comment"># 进入release文件夹</span></span><br><span class="line">cmake <span class="string">"../"</span> -DCMAKE_CONFIGURATION_TYPES=Release -Dgtest_force_shared_crt=ON -Dgtest_build_samples=ON -DCMAKE_INSTALL_PREFIX=D:/SDK/GoogleTest/v1.10.x/release -G <span class="string">"Visual Studio 16 2019"</span> -A x64</span><br></pre></td></tr></table></figure></p>
+<p>生成install文件：<br>管理员启动：x64_x86 Cross Tools Command Prompt for VS 2019.lnk<br>然后执行：msbuild INSTALL.vcxproj (release版本可能会报错)<br>或者使用用：cmake –build . –target INSTALL –config Release 编译并安装。</p>
+<h3 id="1-2-Linux下GoogleTest的编译方法（包含example）"><a href="#1-2-Linux下GoogleTest的编译方法（包含example）" class="headerlink" title="1.2 Linux下GoogleTest的编译方法（包含example）:"></a>1.2 Linux下GoogleTest的编译方法（包含example）:</h3><p>1.2.1 debug版本编译：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir debug    <span class="comment"># 在源码根目录创建一个名叫debug的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> debug       <span class="comment"># 进入debug文件夹</span></span><br><span class="line">cmake <span class="string">"../"</span> \</span><br><span class="line">-DCMAKE_BUILD_TYPE=Debug \</span><br><span class="line">-DCMAKE_DEBUG_POSTFIX=d \</span><br><span class="line">-Dgtest_force_shared_crt=ON \</span><br><span class="line">-Dgtest_build_samples=ON \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=~/SDK/googletest/v1.12.1/debug \</span><br><span class="line">-DCMAKE_C_COMPILER=/usr/bin/gcc-11 \</span><br><span class="line">-DCMAKE_CXX_COMPILER=/usr/bin/g++-11</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<p>1.2.2 release版本编译：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir release   <span class="comment"># 在源码根目录创建一个名叫release的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> release      <span class="comment"># 进入release文件夹</span></span><br><span class="line">cmake <span class="string">"../"</span> \</span><br><span class="line">-DCMAKE_BUILD_TYPE=Release \</span><br><span class="line">-Dgtest_force_shared_crt=ON \</span><br><span class="line">-Dgtest_build_samples=ON \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=~/SDK/googletest/v1.12.1/release \</span><br><span class="line">-DCMAKE_C_COMPILER=/usr/bin/gcc-11 \</span><br><span class="line">-DCMAKE_CXX_COMPILER=/usr/bin/g++-11</span><br></pre></td></tr></table></figure></p>
+<h3 id="编译参数含义说明："><a href="#编译参数含义说明：" class="headerlink" title="编译参数含义说明："></a>编译参数含义说明：</h3><blockquote>
+<p>-DCMAKE_BUILD_TYPE：用来制定编译Debug版本，还是Release版本。<br>-DCMAKE_DEBUG_POSTFIX：debug版本生成lib追加的后缀名（d表示原本为xx.so，编译生成的是xxd.so）<br>-Dgtest_force_shared_crt=ON：Winodws设置构建库类型为MD。<br>-DCMAKE_INSTALL_PREFIX=~/SDK/googletest/v1.12.1/debug ：指定SDK生成后的保存目录。<br>-DCMAKE_C_COMPILER=/usr/bin/gcc-11：指定使用的gcc编译版本。<br>-DCMAKE_CXX_COMPILER=/usr/bin/g++-11：指定使用的g++版本。</p>
+</blockquote>
+<hr>
+<h2 id="2-GoogleTest常用测试宏："><a href="#2-GoogleTest常用测试宏：" class="headerlink" title="2 GoogleTest常用测试宏："></a>2 GoogleTest常用测试宏：</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">ASSERT宏</th>
+<th style="text-align:left">EXPECT宏</th>
+<th style="text-align:left">功能</th>
+<th style="text-align:left">使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>ASSERT_TRUE|EXPECT_TRUE|判真|判断表达式真假<br>ASSERT_FALSE|EXPECT_FALSE|判假|判断表达式真假<br>ASSERT_EQ|EXPECT_EQ|相等|数值比较<br>ASSERT_NE|EXPECT_NE|不等|数值比较<br>ASSERT_GT|EXPECT_GT|大于|数值比较<br>ASSERT_LT|EXPECT_LT|小于|数值比较<br>ASSERT_GE|EXPECT_GE|大于或等于|数值比较<br>ASSERT_LE|EXPECT_LE|小于或等于|数值比较<br>ASSERT_FLOAT_EQ|EXPECT_FLOAT_EQ|单精度浮点值相等|数值比较<br>ASSERT_DOUBLE_EQ|EXPECT_DOUBLE_EQ|双精度浮点值相等|数值比较<br>ASSERT_NEAR|EXPECT_NEAR|浮点值接近（第3个参数为误差阈值）|双精度浮点值相等、数值比价<br>ASSERT_STREQ|EXPECT_STREQ|C字符串相等|字符串比较<br>ASSERT_STRNE|EXPECT_STRNE|C字符串不等|字符串比较<br>ASSERT_STRCASEEQ|EXPECT_STRCASEEQ|C字符串相等（忽略大小写）|字符串比较<br>ASSERT_STRCASENE|EXPECT_STRCASENE|C字符串不等（忽略大小写）|字符串比较<br>ASSERT_PRED1|EXPECT_PRED1|自定义谓词函数，(pred, arg1)（还有_PRED2, …, _PRED5|自定义比较函数</p>
+<hr>
+<h2 id="3-GoogleTest使用步骤"><a href="#3-GoogleTest使用步骤" class="headerlink" title="3 GoogleTest使用步骤"></a>3 GoogleTest使用步骤</h2><h3 id="3-1-以sample1为例："><a href="#3-1-以sample1为例：" class="headerlink" title="3.1 以sample1为例："></a>3.1 以sample1为例：</h3><h4 id="3-1-1-sample1目录结构如下："><a href="#3-1-1-sample1目录结构如下：" class="headerlink" title="3.1.1 sample1目录结构如下："></a>3.1.1 sample1目录结构如下：</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">└─sample1</span><br><span class="line">    │  CMakeLists.txt</span><br><span class="line">    │  sample1.h</span><br><span class="line">    │  sample1.cc</span><br><span class="line">    │  sample1_unittest.cc</span><br><span class="line">    │</span><br><span class="line">    ├─debug</span><br><span class="line">    └─googletest_lib</span><br></pre></td></tr></table></figure>
+<p><strong>CMakeLists.txt文件内容如下:</strong><br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.14</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(sample1 LANGUAGES CXX)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">ON</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(sample1</span><br><span class="line">    sample1.h</span><br><span class="line">    sample1.cc</span><br><span class="line">    sample1_unittest.cc</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接gtest_maind.lib库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(sample1 <span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/googletest_lib/lib/debug/gtest_maind.lib)</span><br><span class="line"><span class="comment"># 链接gtestd.lib库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(sample1 <span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/googletest_lib/lib/debug/gtestd.lib)</span><br><span class="line"><span class="comment"># 在工程中共引入GoogleTest头文件搜索路径</span></span><br><span class="line"><span class="keyword">target_include_directories</span>(sample1 PUBLIC <span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/googletest_lib/<span class="keyword">include</span>)</span><br></pre></td></tr></table></figure></p>
+<p><strong>sample1.h文件内容如下:</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> GTEST_SAMPLES_SAMPLE1_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GTEST_SAMPLES_SAMPLE1_H_</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Returns n! (the factorial of n).  For negative n, n! is defined to be 1.</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Factorial</span><span class="params">(<span class="keyword">int</span> n)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span>  <span class="comment">// GTEST_SAMPLES_SAMPLE1_H_</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>sample1.cc文件内容如下:</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sample1.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Returns n! (the factorial of n).  For negative n, n! is defined to be 1.</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Factorial</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> result = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    result *= i;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>sample1_unittest.cc文件内容如下:</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;limits.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sample1.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"gtest/gtest.h"</span></span></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Tests factorial of negative numbers.</span></span><br><span class="line">TEST(FactorialTest, Negative) &#123;</span><br><span class="line">  <span class="comment">// This test is named "Negative", and belongs to the "FactorialTest"</span></span><br><span class="line">  <span class="comment">// test case.</span></span><br><span class="line">  EXPECT_EQ(<span class="number">1</span>, Factorial(<span class="number">-5</span>));</span><br><span class="line">  EXPECT_EQ(<span class="number">1</span>, Factorial(<span class="number">-1</span>));</span><br><span class="line">  EXPECT_GT(Factorial(<span class="number">-10</span>), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Tests factorial of 0.</span></span><br><span class="line">TEST(FactorialTest, Zero) &#123;</span><br><span class="line">  EXPECT_EQ(<span class="number">1</span>, Factorial(<span class="number">0</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Tests factorial of positive numbers.</span></span><br><span class="line">TEST(FactorialTest, Positive) &#123;</span><br><span class="line">  EXPECT_EQ(<span class="number">1</span>, Factorial(<span class="number">1</span>));</span><br><span class="line">  EXPECT_EQ(<span class="number">2</span>, Factorial(<span class="number">2</span>));</span><br><span class="line">  EXPECT_EQ(<span class="number">6</span>, Factorial(<span class="number">3</span>));</span><br><span class="line">  EXPECT_EQ(<span class="number">40320</span>, Factorial(<span class="number">8</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;  <span class="comment">// namespace</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="3-1-2编译构建命令："><a href="#3-1-2编译构建命令：" class="headerlink" title="3.1.2编译构建命令："></a>3.1.2编译构建命令：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir debug</span><br><span class="line"><span class="built_in">cd</span> debug</span><br><span class="line">cmake <span class="string">"../"</span> \</span><br><span class="line">-DCMAKE_BUILD_TYPE:STRING=Debug \</span><br><span class="line">-DCMAKE_C_COMPILER:STRING=/usr/bin/gcc \</span><br><span class="line">-DCMAKE_CXX_COMPILER:STRING=/usr/bin/g++</span><br><span class="line">cmake --build . --config Debug</span><br><span class="line"><span class="built_in">cd</span> Debug</span><br><span class="line">运行：sample1</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-再看在MessagePush工程中如何引入GoogleTest"><a href="#3-2-再看在MessagePush工程中如何引入GoogleTest" class="headerlink" title="3.2 再看在MessagePush工程中如何引入GoogleTest"></a>3.2 再看在MessagePush工程中如何引入GoogleTest</h3><h4 id="3-2-1-最后在你的工程里如CMakeLists-txt中引入："><a href="#3-2-1-最后在你的工程里如CMakeLists-txt中引入：" class="headerlink" title="3.2.1 最后在你的工程里如CMakeLists.txt中引入："></a>3.2.1 最后在你的工程里如CMakeLists.txt中引入：</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_gtest(base_common_unittest)</span><br><span class="line"><span class="comment"># 或者:</span></span><br><span class="line">add_gtest_main(mysql_wrapper_unittest)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>add_gtest的作用是为了在Windows下添加gtest.lib，或者Linux下添加libgtest.a。同时引入GoogleTest头文件搜索路径</li>
+<li>add_gtest_main的作用是为了在Windows下添加gtest.lib、gtest_main.lib，或者Linux下添加libgtest.a、libgtest_main.a。同时引入GoogleTest头文件搜索路径</li>
+</ul>
+<p>add_gtest宏：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">macro</span>(add_gtest target_name)</span><br><span class="line">    <span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;target_name&#125;</span></span><br><span class="line">        <span class="variable">$&#123;googletest_lib_path&#125;</span>/<span class="variable">$&#123;gtes_lib_name&#125;</span>     <span class="comment"># googletest_lib_path: gooltest库文件路径</span></span><br><span class="line">        <span class="variable">$&#123;target_name&#125;</span> <span class="variable">$&#123;googletest_lib_path&#125;</span>/<span class="variable">$&#123;gmock_lib_name&#125;</span></span><br><span class="line">        -lpthread</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">target_include_directories</span>(<span class="variable">$&#123;target_name&#125;</span> PUBLIC <span class="variable">$&#123;googletest_include_path&#125;</span>)</span><br><span class="line"><span class="keyword">endmacro</span>(add_gtest)</span><br></pre></td></tr></table></figure></p>
+<p>add_gtest_main宏：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">macro</span>(add_gtest_main target_name)</span><br><span class="line">    <span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;target_name&#125;</span></span><br><span class="line">        <span class="variable">$&#123;googletest_lib_path&#125;</span>/<span class="variable">$&#123;gtes_lib_name&#125;</span> <span class="comment"># googletest_lib_path: gooltest库文件路径</span></span><br><span class="line">        <span class="variable">$&#123;googletest_lib_path&#125;</span>/<span class="variable">$&#123;gtes_main_lib_name&#125;</span></span><br><span class="line">        <span class="variable">$&#123;googletest_lib_path&#125;</span>/<span class="variable">$&#123;gmock_lib_name&#125;</span></span><br><span class="line">        <span class="variable">$&#123;googletest_lib_path&#125;</span>/<span class="variable">$&#123;gmock_main_lib_name&#125;</span></span><br><span class="line">        -lpthread</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">target_include_directories</span>(<span class="variable">$&#123;target_name&#125;</span> PUBLIC <span class="variable">$&#123;googletest_include_path&#125;</span>)</span><br><span class="line"><span class="keyword">endmacro</span>(add_gtest_main)</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-3-GoogleTest常用测试宏-TEST-TEST-F-TEST-P-TYPED-TEST-的一般使用场景"><a href="#3-3-GoogleTest常用测试宏-TEST-TEST-F-TEST-P-TYPED-TEST-的一般使用场景" class="headerlink" title="3.3 GoogleTest常用测试宏(TEST/TEST_F/TEST_P/TYPED_TEST)的一般使用场景:"></a>3.3 GoogleTest常用测试宏(TEST/TEST_F/TEST_P/TYPED_TEST)的一般使用场景:</h3><ul>
+<li>TEST：通常用于简单的函数测试。</li>
+<li>TEST_F：通常用于需要访问类对象时的测试。</li>
+<li>TEST_P：通常用于把测试对象当作参数传入或有大量重复测试case时。</li>
+<li>TYPED_TEST：通常用于接口测试。</li>
+</ul>
+<h3 id="3-4-其它参考网址"><a href="#3-4-其它参考网址" class="headerlink" title="3.4 其它参考网址:"></a>3.4 其它参考网址:</h3><ul>
+<li>googletest：<a href="https://github.com/google/googletest" target="_blank" rel="noopener">https://github.com/google/googletest</a></li>
+<li>googletest-gmock使用示例：<a href="https://zhuanlan.zhihu.com/p/101906555" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/101906555</a></li>
+<li>GoogleTest单元测试学习：<a href="https://blog.csdn.net/Tosonw/article/details/89449285" target="_blank" rel="noopener">https://blog.csdn.net/Tosonw/article/details/89449285</a></li>
+<li>GoogleTest Primer：<a href="https://blog.csdn.net/qq_34548075/article/details/122864792" target="_blank" rel="noopener">https://blog.csdn.net/qq_34548075/article/details/122864792</a></li>
+</ul>
+<hr>
+        
+            <div class="readmore">
+                <a href="/GoogleTest环境配置以及应用/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/自动化测试/"><i class="fas fa-hashtag fa-fw"></i>自动化测试</a>
+                
+                    <a href="/tags/GoogleTest/"><i class="fas fa-hashtag fa-fw"></i>GoogleTest</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
+          <a href="/11.3 关闭非活动连接/">
+              
+                  11.3 关闭非活动连接
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2022-08-14 星期日
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/linux/Linux高性能服务器编程/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              linux&nbsp;/&nbsp;Linux高性能服务器编程
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"lst_timer.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FD_LIMIT 65535</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_EVENT_NUMBER 1024</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TIMESLOT 5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> pipefd[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">static</span> sort_timer_lst timer_lst;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> epollfd = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setnonblocking</span><span class="params">(<span class="keyword">int</span> fd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> old_option = fcntl(fd, F_GETFL);</span><br><span class="line">    <span class="keyword">int</span> new_option = old_option | O_NONBLOCK;</span><br><span class="line">    fcntl(fd, F_SETFL, new_option);</span><br><span class="line">    <span class="keyword">return</span> old_option;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addfd</span><span class="params">(<span class="keyword">int</span> epollfd, <span class="keyword">int</span> fd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    epoll_event event;</span><br><span class="line">    event.data.fd = fd;</span><br><span class="line">    event.events = EPOLLIN | EPOLLET;</span><br><span class="line">    epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &amp;event);</span><br><span class="line">    setnonblocking(fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_handler</span><span class="params">(<span class="keyword">int</span> sig)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> save_errno = errno;</span><br><span class="line">    <span class="keyword">int</span> msg = sig;</span><br><span class="line">    send(pipefd[<span class="number">1</span>], (<span class="keyword">char</span>*)&amp;msg, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    errno = save_errno;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addsig</span><span class="params">(<span class="keyword">int</span> sig)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span> <span class="title">sa</span>;</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;sa, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(sa));</span><br><span class="line">    sa.sa_handler = sig_handler;</span><br><span class="line">    sa.sa_flags |= SA_RESTART;</span><br><span class="line">    sigfillset(&amp;sa.sa_mask);</span><br><span class="line">    assert(sigaction(sig, &amp;sa, <span class="literal">NULL</span>) != <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer_handler</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    timer_lst.tick();</span><br><span class="line">    alarm(TIMESLOT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cb_func</span><span class="params">(client_data* user_data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    epoll_ctl(epollfd, EPOLL_CTL_DEL, user_data-&gt;sockfd, <span class="number">0</span>);</span><br><span class="line">    assert(user_data);</span><br><span class="line">    close(user_data-&gt;sockfd);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"close fd %d\n"</span>, user_data-&gt;sockfd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc &lt;= <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"usage: %s ip_address port_number\n"</span>, basename(argv[<span class="number">0</span>]));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* ip = argv[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> port = atoi(argv[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">address</span>;</span></span><br><span class="line">    bzero(&amp;address, <span class="keyword">sizeof</span>(address));</span><br><span class="line">    address.sin_family = AF_INET;</span><br><span class="line">    inet_pton(AF_INET, ip, &amp;address.sin_addr);</span><br><span class="line">    address.sin_port = htons(port);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> listenfd = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    assert(listenfd &gt;= <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    ret = bind(listenfd, (struct sockaddr*)&amp;address, <span class="keyword">sizeof</span>(address));</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    ret = listen(listenfd, <span class="number">5</span>);</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    epoll_event events[MAX_EVENT_NUMBER];</span><br><span class="line">    <span class="keyword">int</span> epollfd = epoll_create(<span class="number">5</span>);</span><br><span class="line">    assert(epollfd != <span class="number">-1</span>);</span><br><span class="line">    addfd(epollfd, listenfd);</span><br><span class="line"></span><br><span class="line">    ret = socketpair(PF_UNIX, SOCK_STREAM, <span class="number">0</span>, pipefd);</span><br><span class="line">    assert(ret != <span class="number">-1</span>);</span><br><span class="line">    setnonblocking(pipefd[<span class="number">1</span>]);</span><br><span class="line">    addfd(epollfd, pipefd[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// add all the interesting signals here</span></span><br><span class="line">    addsig(SIGALRM);</span><br><span class="line">    addsig(SIGTERM);</span><br><span class="line">    <span class="keyword">bool</span> stop_server = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    client_data* users = <span class="keyword">new</span> client_data[FD_LIMIT];</span><br><span class="line">    <span class="keyword">bool</span> timeout = <span class="literal">false</span>;</span><br><span class="line">    alarm(TIMESLOT);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!stop_server)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> number = epoll_wait(epollfd, events, MAX_EVENT_NUMBER, <span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span> ((number &lt; <span class="number">0</span>) &amp;&amp; (errno != EINTR))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"epoll failure\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; number; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> sockfd = events[i].data.fd;</span><br><span class="line">            <span class="keyword">if</span> (sockfd == listenfd)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">client_address</span>;</span></span><br><span class="line">                <span class="keyword">socklen_t</span> client_addrlength = <span class="keyword">sizeof</span>(client_address);</span><br><span class="line">                <span class="keyword">int</span> connfd = accept(listenfd, (struct sockaddr*)&amp;client_address, &amp;client_addrlength);</span><br><span class="line">                addfd(epollfd, connfd);</span><br><span class="line">                users[connfd].address = client_address;</span><br><span class="line">                users[connfd].sockfd = connfd;</span><br><span class="line">                util_timer* timer = <span class="keyword">new</span> util_timer;</span><br><span class="line">                timer-&gt;user_data = &amp;users[connfd];</span><br><span class="line">                timer-&gt;cb_func = cb_func;</span><br><span class="line">                <span class="keyword">time_t</span> cur = time(<span class="literal">NULL</span>);</span><br><span class="line">                timer-&gt;expire = cur + <span class="number">3</span> * TIMESLOT;</span><br><span class="line">                users[connfd].timer = timer;</span><br><span class="line">                timer_lst.add_timer(timer);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ((sockfd == pipefd[<span class="number">0</span>]) &amp;&amp; (events[i].events &amp; EPOLLIN))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> sig;</span><br><span class="line">                <span class="keyword">char</span> signals[<span class="number">1024</span>];</span><br><span class="line">                ret = recv(pipefd[<span class="number">0</span>], signals, <span class="keyword">sizeof</span>(signals), <span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span> (ret == <span class="number">-1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// handle the error</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (ret == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ret; ++i)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">switch</span> (signals[i])</span><br><span class="line">                        &#123;</span><br><span class="line">                        <span class="keyword">case</span> SIGALRM:</span><br><span class="line">                        &#123;</span><br><span class="line">                            timeout = <span class="literal">true</span>;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">case</span> SIGTERM:</span><br><span class="line">                        &#123;</span><br><span class="line">                            stop_server = <span class="literal">true</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (events[i].events &amp; EPOLLIN)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">memset</span>(users[sockfd].buf, <span class="string">'\0'</span>, BUFFER_SIZE);</span><br><span class="line">                ret = recv(sockfd, users[sockfd].buf, BUFFER_SIZE - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"get %d bytes of client data %s from %d\n"</span>, ret, users[sockfd].buf, sockfd);</span><br><span class="line">                util_timer* timer = users[sockfd].timer;</span><br><span class="line">                <span class="keyword">if</span> (ret &lt; <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (errno != EAGAIN)</span><br><span class="line">                    &#123;</span><br><span class="line">                        cb_func(&amp;users[sockfd]);</span><br><span class="line">                        <span class="keyword">if</span> (timer)</span><br><span class="line">                        &#123;</span><br><span class="line">                            timer_lst.del_timer(timer);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (ret == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    cb_func(&amp;users[sockfd]);</span><br><span class="line">                    <span class="keyword">if</span> (timer)</span><br><span class="line">                    &#123;</span><br><span class="line">                        timer_lst.del_timer(timer);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//send( sockfd, users[sockfd].buf, BUFFER_SIZE-1, 0 );</span></span><br><span class="line">                    <span class="keyword">if</span> (timer)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">time_t</span> cur = time(<span class="literal">NULL</span>);</span><br><span class="line">                        timer-&gt;expire = cur + <span class="number">3</span> * TIMESLOT;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"adjust timer once\n"</span>);</span><br><span class="line">                        timer_lst.adjust_timer(timer);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// others</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (timeout)</span><br><span class="line">        &#123;</span><br><span class="line">            timer_handler();</span><br><span class="line">            timeout = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(listenfd);</span><br><span class="line">    close(pipefd[<span class="number">1</span>]);</span><br><span class="line">    close(pipefd[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">delete</span>[] users;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+            <div class="readmore">
+                <a href="/11.3 关闭非活动连接/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/linux/"><i class="fas fa-hashtag fa-fw"></i>linux</a>
+                
+                    <a href="/tags/Linux高性能服务器编程/"><i class="fas fa-hashtag fa-fw"></i>Linux高性能服务器编程</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
         
           
             <div class="post-wrapper">
@@ -697,9 +940,9 @@
         
             <div class="full-width auto-padding tags">
                 
-                    <a href="/tags/C-深入浅出系列/"><i class="fas fa-hashtag fa-fw"></i>C++深入浅出系列</a>
-                
                     <a href="/tags/C/"><i class="fas fa-hashtag fa-fw"></i>C++</a>
+                
+                    <a href="/tags/C-深入浅出系列/"><i class="fas fa-hashtag fa-fw"></i>C++深入浅出系列</a>
                 
             </div>
         
@@ -902,9 +1145,9 @@
         
             <div class="full-width auto-padding tags">
                 
-                    <a href="/tags/C/"><i class="fas fa-hashtag fa-fw"></i>C</a>
-                
                     <a href="/tags/C-深入浅出系列/"><i class="fas fa-hashtag fa-fw"></i>C++深入浅出系列</a>
+                
+                    <a href="/tags/C/"><i class="fas fa-hashtag fa-fw"></i>C</a>
                 
             </div>
         
@@ -1068,162 +1311,6 @@
             </div>
           
         
-          
-            <div class="post-wrapper">
-              <article class="post reveal ">
-    
-<section class="meta">
-  
-  
-  <div class="meta" id="header-meta">
-    
-      <h2 class="title">
-          <a href="/Resharper快捷键无效/">
-              
-                  Resharper快捷键无效
-              
-          </a>
-      </h2>
-    
-
-    <div class="new-meta-box">
-      
-        <div class="new-meta-item author">
-          <a href="https://calm2012.github.io/calm2012.github.io">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            calm2012
-          </a>
-        </div>
-      
-      
-        <div class="new-meta-item date">
-          <a class="notlink">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            2020-02-22 星期六
-          </a>
-        </div>
-      
-      
-        
-          
-          <div class="new-meta-item category">
-            <a href="/categories/Resharper/Resharper/">
-              <i class="fas fa-folder-open" aria-hidden="true"></i>
-              Resharper&nbsp;/&nbsp;Resharper
-            </a>
-          </div>
-        
-      
-      
-      
-    </div>
-    <hr>
-  </div>
-</section>
-
-    <section class="article typo">
-        <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="string">Resharper菜单选项</span> <span class="bullet">--&gt;</span> <span class="string">Options</span> <span class="bullet">--&gt;</span> <span class="string">Environment</span> <span class="bullet">--&gt;</span> <span class="string">Keyboard</span> <span class="string">&amp;</span> <span class="string">Menus</span> <span class="bullet">--&gt;</span> <span class="string">Keyboard</span> <span class="string">Shortcuts</span> <span class="bullet">--&gt;</span> <span class="string">ReSharper</span> <span class="number">2.</span><span class="string">x</span></span><br></pre></td></tr></table></figure>
-        
-            <div class="readmore">
-                <a href="/Resharper快捷键无效/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/Resharper/"><i class="fas fa-hashtag fa-fw"></i>Resharper</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-            </div>
-          
-        
-          
-            <div class="post-wrapper">
-              <article class="post reveal ">
-    
-<section class="meta">
-  
-  
-  <div class="meta" id="header-meta">
-    
-      <h2 class="title">
-          <a href="/Everything设置用TC打开/">
-              
-                  Everything设置用TC打开
-              
-          </a>
-      </h2>
-    
-
-    <div class="new-meta-box">
-      
-        <div class="new-meta-item author">
-          <a href="https://calm2012.github.io/calm2012.github.io">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            calm2012
-          </a>
-        </div>
-      
-      
-        <div class="new-meta-item date">
-          <a class="notlink">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            2019-12-17 星期二
-          </a>
-        </div>
-      
-      
-        
-          
-          <div class="new-meta-item category">
-            <a href="/categories/软件设置/Everything/">
-              <i class="fas fa-folder-open" aria-hidden="true"></i>
-              软件设置&nbsp;/&nbsp;Everything
-            </a>
-          </div>
-        
-      
-      
-      
-    </div>
-    <hr>
-  </div>
-</section>
-
-    <section class="article typo">
-        <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="string">打开</span></span><br><span class="line"><span class="string">$exec("G:\soft\TC\Totalcmd64.exe"</span> <span class="string">"%1"</span><span class="string">)</span></span><br><span class="line"><span class="number">2.</span> <span class="string">打开路径</span></span><br><span class="line"><span class="string">$exec("G:\soft\TC\Totalcmd64.exe"</span> <span class="string">"$parent(%1)"</span><span class="string">)</span></span><br></pre></td></tr></table></figure>
-        
-            <div class="readmore">
-                <a href="/Everything设置用TC打开/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/软件设置/"><i class="fas fa-hashtag fa-fw"></i>软件设置</a>
-                
-                    <a href="/tags/Everything/"><i class="fas fa-hashtag fa-fw"></i>Everything</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-            </div>
-          
-        
       
 
   </section>
@@ -1370,6 +1457,10 @@
         
           <li><a class="flat-box child" title="/categories/编译错误/VC/" href="/categories/编译错误/VC/"><div class="name">VC</div><div class="badge">(2)</div></a></li>
         
+          <li><a class="flat-box" title="/categories/自动化测试/" href="/categories/自动化测试/"><div class="name">自动化测试</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/自动化测试/GoogleTest/" href="/categories/自动化测试/GoogleTest/"><div class="name">GoogleTest</div><div class="badge">(1)</div></a></li>
+        
           <li><a class="flat-box" title="/categories/跨平台/" href="/categories/跨平台/"><div class="name">跨平台</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box" title="/categories/软件设置/" href="/categories/软件设置/"><div class="name">软件设置</div><div class="badge">(4)</div></a></li>
@@ -1400,7 +1491,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/CEF/" style="font-size: 14px; color: #999">CEF</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/MacOS/" style="font-size: 14px; color: #999">MacOS</a> <a href="/tags/QT/" style="font-size: 16.5px; color: #888">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/VS/" style="font-size: 14px; color: #999">VS</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
+      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/CEF/" style="font-size: 14px; color: #999">CEF</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/GoogleTest/" style="font-size: 14px; color: #999">GoogleTest</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/MacOS/" style="font-size: 14px; color: #999">MacOS</a> <a href="/tags/QT/" style="font-size: 16.5px; color: #888">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/VS/" style="font-size: 14px; color: #999">VS</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/自动化测试/" style="font-size: 14px; color: #999">自动化测试</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
     </div>
   </section>
 
