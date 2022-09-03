@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>UAC实现原理 | 光影星辰</title>
+  
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="PYt_hX2VWBnIOCJzFpeDmfZ3TCR92Zl7WTDgPfeTpDc">
+  <meta name="baidu-site-verification" content="NX7WPDjsb1">
+  <!-- meta -->
+  
+  
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="msapplication-TileColor" content="#1BC3FB">
+  <meta name="msapplication-config" content="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/browserconfig.xml">
+  
+
+  <!-- link -->
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
+  
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/calm2012/file_storage/master/image/apple.ico">
+  <link rel="icon" type="image/x-icon" sizes="32x32" href="https://raw.githubusercontent.com/calm2012/file_storage/master/image/apple.ico">
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://raw.githubusercontent.com/calm2012/file_storage/master/image/apple.ico">
+  <link rel="mask-icon" color="#1BC3FB" href="https://raw.githubusercontent.com/calm2012/file_storage/master/image/apple.ico">
+  <link rel="manifest" href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/site.webmanifest">
+  
+
+  
+
+  
+  <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'PYt_hX2VWBnIOCJzFpeDmfZ3TCR92Zl7WTDgPfeTpDc', 'calm2012.github.io');
+      ga('send', 'pageview');
+    </script>
+  
+  
+    <!-- ba -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1c9bd0bcc92aed38d85380f859e7f47e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+  
+</head>
+
+<body>
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar" class="pure"></div>
+</div>
+
+    <script>setLoadingBarProgress(20)</script>
+    <header class="l_header pure">
+	<div class="wrapper">
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href="/">
+        
+          光影星辰
+        
+      </a>
+			<div class="menu">
+				<ul class="h-list">
+          
+  					
+  						<li>
+								<a id="home" class="nav flat-box" href="/">
+									<i class="fas fa-home fa-fw"></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a id="categories" class="nav flat-box" href="/categories/">
+									<i class="fas fa-folder-open fa-fw"></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a id="tags" class="nav flat-box" href="/tags/">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a id="archives" class="nav flat-box" href="/archives/">
+									<i class="fas fa-archive fa-fw"></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a id="about" class="nav flat-box" href="/about/">
+									<i class="fas fa-user fa-fw"></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索">
+						<span class="icon"><i class="fas fa-search fa-fw"></i></span>
+					</form>
+				</div>
+			
+			<ul class="switcher h-list">
+				
+					<li class="s-search"><a class="fas fa-search fa-fw" href="javascript:void(0)"></a></li>
+				
+				<li class="s-menu"><a class="fas fa-bars fa-fw" href="javascript:void(0)"></a></li>
+			</ul>
+		</div>
+
+		<div class="nav-sub container container--flex">
+			<a class="logo flat-box"></a>
+			<ul class="switcher h-list">
+				<li class="s-comment"><a class="flat-btn fas fa-comments fa-fw" href="javascript:void(0)"></a></li>
+				<li class="s-toc"><a class="flat-btn fas fa-list fa-fw" href="javascript:void(0)"></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu">
+      <ul>
+          
+              
+                  <li>
+										<a id="home" class="nav flat-box" href="/">
+											<i class="fas fa-home fa-fw"></i>&nbsp;主页
+										</a>
+                  </li>
+              
+                  <li>
+										<a id="categories" class="nav flat-box" href="/categories/">
+											<i class="fas fa-folder-open fa-fw"></i>&nbsp;分类
+										</a>
+                  </li>
+              
+                  <li>
+										<a id="tags" class="nav flat-box" href="/tags/">
+											<i class="fas fa-hashtag fa-fw"></i>&nbsp;标签
+										</a>
+                  </li>
+              
+                  <li>
+										<a id="archives" class="nav flat-box" href="/archives/">
+											<i class="fas fa-archive fa-fw"></i>&nbsp;归档
+										</a>
+                  </li>
+              
+                  <li>
+										<a id="about" class="nav flat-box" href="/about/">
+											<i class="fas fa-user fa-fw"></i>&nbsp;关于
+										</a>
+                  </li>
+              
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+
+    <script>setLoadingBarProgress(40);</script>
+    <div class="l_body">
+    <div class='container clearfix'>
+        <div class='l_main'>
+            <article id="post" class="post white-box article-type-post" itemscope="" itemprop="blogPost">
+  
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      
+          <h1 class="title">UAC实现原理</h1>
+      
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2022-09-03 星期六
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/Windows/UAC实现原理/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              Windows&nbsp;/&nbsp;UAC实现原理
+            </a>
+          </div>
+        
+      
+      
+        
+          <div class="new-meta-item browse busuanzi">
+            <a class="notlink">
+              <i class="fas fa-eye" aria-hidden="true"></i>
+              <span id="busuanzi_value_page_pv">
+                <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+        
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h2 id="UAC实现原理："><a href="#UAC实现原理：" class="headerlink" title="UAC实现原理："></a>UAC实现原理：</h2><ul>
+<li>当用户登录系统成功后， 系统会为用户生成一个accessToken。该用户调用的每一个进程都会有一个AccessToken copy。当进程要访问某个securable object 时，系统会比对accessToken拥有的权限（previlages 是否能访问securable object）</li>
+<li>如果安全描述符中不存在DACL，则系统会允许线程进行访问。如果存在DACL，系统会顺序遍历DACL中的每个ACE，检查ACE中的SID在线程的AccessTkoen中是否存在。以访问者中的User SID或Group SID作为关键字查询被访问对象中的DACL。顺序：先查询类型为DENY的ACE，若命中且权限符合则访问拒绝；未命中再在ALLOWED类型的ACE中查询，若命中且类型符合则可以访问；如果前两步后还没命中那么访问拒绝。</li>
+</ul>
+<p><strong>相关概念：</strong><br><strong>ntoskrnl.exe：</strong> ntoskrnl.exe 是 Windows 操作系统的一个重要内核程序文件，里面存储了大量的二进制内核代码，用于调度系统。<br><strong>Windows执行体：</strong> Windows执行体是ntoskrnl.exe中的上层（内核是其下层）。<br><strong>对象管理器（Object Manager）：</strong> 创建、管理和删除Windows执行体对象和抽象数据类型，他们（抽象数据类型）代表了操作系统资源，比如进程、线程和各种同步对象。</p>
+<p><strong>环境子系统：</strong> 环境子系统是操作系统中名词。环境子系统向应用程序提供环境和应用程序编程接口(Appplication Programming Interface, API）。Windows 2000/XP支持三种环境子系统：Win32、POSIX和OS/2，其中最重要的环境子系统是Win32子系统，其他子系统都要通过Win32子系统接收用户的输入和显示输出。环境子系统的作用是将基本的执行体系统服务的某些子集提供给应用程序。 用户应用程序调用系统服务时必须通过一个或多个子系统动态链接库作为中介才可以完成。<br><strong>执行体对象：</strong> 每个Windows环境子系统总是把操作系统的不同面貌呈现给它的应用程序。执行体对象和对象服务是环境子系统用于构建其自有版本的对象和其他资源的基础。<br><strong>安全描述符（Security descriptors）：</strong> 是安全信息的数据结构（SECURITY_DESCRIPTOR），用于可安全（securable）的Windows对象，这些对象可以被唯一名称辨识。安全描述符可用于任何命名对象，包括文件、文件夹、共享、注册表键、进程、线程、命名管道、服务、工作对象以及其他资源。</p>
+<ul>
+<li>版本号：创建此描述符的SRM安全模型的版本;</li>
+<li>标志：一些可选的修饰符，定义了该描述符的行为或特征。表6.5列出了这些标志;</li>
+<li>所有者SID：所有者的安全ID</li>
+<li>组SID：该对象的主组的安全ID（仅用于POSIX）</li>
+<li>自主访问控制列表（discretionary access control list，DACL）：规定了谁可以用什么方式访问该对象。</li>
+<li>系统访问控制列表(System Access Control List，SACL)规定了哪些用户的哪些操作应该被记录到安全审计日志中，以及对象的显式完整性级别。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SECURITY_DESCRIPTOR</span> &#123;</span>  </span><br><span class="line">  UCHAR  Revision;  </span><br><span class="line">  UCHAR  Sbz1;  </span><br><span class="line">  SECURITY_DESCRIPTOR_CONTROL  Control; <span class="comment">//其自身的一些控制位  </span></span><br><span class="line">  PSID  Owner; <span class="comment">//Owner安全标识符(Security identifiers) 相当于UUID，标识用户、用户群、计算机帐户  </span></span><br><span class="line">  PSID  Group; <span class="comment">//Group安全标识符(Security identifiers) 相当于UUID  </span></span><br><span class="line">  PACL  Sacl; <span class="comment">//（System Access Control List），其指出了在该对象上的一组存取方式（如，读、写、运行等）的存取控制权限细节的列表。  </span></span><br><span class="line">  PACL  Dacl; <span class="comment">//（Discretionary Access Control List），其指出了允许和拒绝某用户或用户组的存取控制列表。 如果一个对象没有DACL，那么就是说这个对象是任何人都可以拥有完全的访问权限。   </span></span><br><span class="line">&#125; SECURITY_DESCRIPTOR, *PISECURITY_DESCRIPTOR;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span> &#123;</span>  </span><br><span class="line">    BYTE  AclRevision;  </span><br><span class="line">    BYTE  Sbz1;  </span><br><span class="line">    WORD   AclSize;  </span><br><span class="line">    WORD   AceCount;  </span><br><span class="line">    WORD   Sbz2;  </span><br><span class="line">&#125; ACL, *PACL;</span><br></pre></td></tr></table></figure>
+<p><strong>安全标识符 (Security Identifier，SID)：</strong> 是Windows操作系统使用的独一无二的，不变的标识符用于标识用户、用户群、或其他安全主体。<br><strong>可移植操作系统接口（POSIX）：</strong> 是IEEE为要在各种UNIX操作系统上运行软件，而定义API的一系列互相关联的标准的总称。<br><strong>访问控制项（ access control entries，ACE）：</strong><br><strong>安全描述符：</strong> 包含自主决定的访问控制表（DACL），里面包含有访问控制项（ACE），因此可以允许或拒绝特定用户或用户组的访问。它们还包含一个系统访问控制列表（SACL）以控制对象访问请求的日志（logging）。[2][3]ACE可以显式应用于对象，或者从父对象继承。ACE的顺序在ACL中很重要，拒绝访问的ACE应该比允许访问的ACE更早出现。安全描述符还包含对象所有者。<br><strong>访问控制列表（access control list，ACL）：</strong> 访问控制列表(ACL，access-control list)是由一个头和零个或多个访问控制项(ACE, access-control entry)结构组成的。共有两种类型的ACL: DACL和SACL。在DACL中，每一个ACE包含一个SID和一个访问掩码。</p>
+<hr>
+<a id="more"></a>
+      </div>
+        
+          <section class="meta" id="footer-meta">
+            <hr>
+            <div class="new-meta-box">
+              
+                <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-09-03T23:00:31+08:00">
+                  <a class="notlink">
+                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    2022-09-03 星期六
+                  </a>
+                </div>
+              
+              
+                
+                <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Windows/"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;Windows</a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/UAC实现原理/"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;UAC实现原理</a></div>
+              
+              
+            </div>
+          </section>
+        
+
+        
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/GoogleTest环境配置以及应用/" rel="prev" title="GoogleTest环境配置以及应用">
+                                    
+                                        GoogleTest环境配置以及应用
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/自动化测试/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>自动化测试</a> <a class="tag" href="/tags/GoogleTest/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>GoogleTest</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+
+    </section>
+
+</article>
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+<br>
+
+<!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+
+<script>
+    window.subData = {
+        title: 'UAC实现原理',
+        tools: true
+    }
+</script>
+
+
+        </div>
+        <aside class='l_side'>
+            
+  
+  
+    
+      
+      
+        <section class="author">
+  <div class="content pure">
+    
+      <div class="avatar">
+        <img class="avatar" src="https://s4.ax1x.com/2022/03/03/bJYa79.jpg">
+      </div>
+    
+    
+      <div class="text">
+        
+        
+        
+          <p><span id="jinrishici-sentence">柳暗花明又一村</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+  </div>
+</section>
+
+      
+    
+  
+    
+      
+      
+        <section class="plain">
+  
+<header class="pure">
+  <div><i class="fas fa-bullhorn fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;注意啦～</div>
+  
+    <a class="rightBtn" target="_blank" rel="external nofollow noopener noreferrer" href="https://xaoxuu.com/wiki/material-x/" title="https://xaoxuu.com/wiki/material-x/">
+    <i class="fas fa-question-circle fa-fw"></i></a>
+  
+</header>
+
+  <div class="content pure">
+    <p>欢迎访问程序员小站,喜欢的朋友可以安利给身边的朋友哦～ <br> QQ群:&emsp;&emsp;&emsp;&nbsp;&nbsp;<a href="http://shang.qq.com/wpa/qunwpa?idkey=38fbc1431dcb54c10cf7ef249808bad95b939883031ec289660b8d6c4bd4cb27">103197177</a> <br>今日头条ID:&emsp;<a href="https://www.toutiao.com/c/user/5924607123/">光影星辰彩虹之南</a></p>
+
+  </div>
+</section>
+
+      
+    
+  
+    
+      
+      
+        
+  <section class="category">
+    
+<header class="pure">
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;所有分类</div>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/C/" href="/categories/C/"><div class="name">C++</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/C/C-深入浅出系列/" href="/categories/C/C-深入浅出系列/"><div class="name">C++深入浅出系列</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/MacOS/" href="/categories/MacOS/"><div class="name">MacOS</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/MacOS/CEF/" href="/categories/MacOS/CEF/"><div class="name">CEF</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/QT/" href="/categories/QT/"><div class="name">QT</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/QT/QT/" href="/categories/QT/QT/"><div class="name">QT</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Resharper/" href="/categories/Resharper/"><div class="name">Resharper</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/Resharper/Resharper/" href="/categories/Resharper/Resharper/"><div class="name">Resharper</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Ruby/" href="/categories/Ruby/"><div class="name">Ruby</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/Ruby/Ruby/" href="/categories/Ruby/Ruby/"><div class="name">Ruby</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Windows/" href="/categories/Windows/"><div class="name">Windows</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/Windows/UAC实现原理/" href="/categories/Windows/UAC实现原理/"><div class="name">UAC实现原理</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/cmake/" href="/categories/cmake/"><div class="name">cmake</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/cmake/cmake/" href="/categories/cmake/cmake/"><div class="name">cmake</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/linux/" href="/categories/linux/"><div class="name">linux</div><div class="badge">(49)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/linux/Linux编译环境设置/" href="/categories/linux/Linux编译环境设置/"><div class="name">Linux编译环境设置</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/linux/Linux软件安装/" href="/categories/linux/Linux软件安装/"><div class="name">Linux软件安装</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/linux/Linux高性能服务器编程/" href="/categories/linux/Linux高性能服务器编程/"><div class="name">Linux高性能服务器编程</div><div class="badge">(42)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/系统设置/" href="/categories/系统设置/"><div class="name">系统设置</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/系统设置/Win10/" href="/categories/系统设置/Win10/"><div class="name">Win10</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/编译错误/" href="/categories/编译错误/"><div class="name">编译错误</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/编译错误/VC/" href="/categories/编译错误/VC/"><div class="name">VC</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/自动化测试/" href="/categories/自动化测试/"><div class="name">自动化测试</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/自动化测试/GoogleTest/" href="/categories/自动化测试/GoogleTest/"><div class="name">GoogleTest</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/跨平台/" href="/categories/跨平台/"><div class="name">跨平台</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/软件设置/" href="/categories/软件设置/"><div class="name">软件设置</div><div class="badge">(4)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/软件设置/Everything/" href="/categories/软件设置/Everything/"><div class="name">Everything</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/软件设置/VM/" href="/categories/软件设置/VM/"><div class="name">VM</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/软件设置/VS/" href="/categories/软件设置/VS/"><div class="name">VS</div><div class="badge">(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+      
+    
+  
+    
+      
+      
+        
+  <section class="tagcloud">
+    
+<header class="pure">
+  <div><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+</header>
+
+    <div class="content pure">
+      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/CEF/" style="font-size: 14px; color: #999">CEF</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/GoogleTest/" style="font-size: 14px; color: #999">GoogleTest</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/MacOS/" style="font-size: 14px; color: #999">MacOS</a> <a href="/tags/QT/" style="font-size: 16.5px; color: #888">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/UAC实现原理/" style="font-size: 14px; color: #999">UAC实现原理</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/VS/" style="font-size: 14px; color: #999">VS</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/自动化测试/" style="font-size: 14px; color: #999">自动化测试</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
+    </div>
+  </section>
+
+
+      
+    
+  
+    
+      
+      
+        
+
+      
+    
+  
+    
+      
+      
+        
+
+
+
+      
+    
+  
+    
+      
+      
+        
+  <section class="toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UAC实现原理："><span class="toc-text">UAC实现原理：</span></a></li></ol>
+    </div>
+  </section>
+
+
+      
+    
+  
+
+
+        </aside>
+        <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+    <footer id="footer" class="clearfix">
+  
+  
+  <br>
+  <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+  <div>本站使用 <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a> 作为主题，总访问量为 <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span> 次。
+  </div>
+</footer>
+
+    <script>setLoadingBarProgress(80);</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+
+  
+    <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        const $reveal = $('.reveal');
+    		if ($reveal.length === 0) return;
+    		const sr = ScrollReveal({ distance: 0 });
+    		sr.reveal('.reveal');
+      });
+    </script>
+  
+  
+    <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        Waves.attach('.flat-btn', ['waves-button']);
+        Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+        Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+        Waves.attach('.flat-box', ['waves-block']);
+        Waves.attach('.float-box', ['waves-block', 'waves-float']);
+        Waves.attach('.waves-image');
+        Waves.init();
+      });
+    </script>
+  
+  
+    <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+  
+  
+  
+
+  
+  
+  
+  
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    
+      
+        <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1/js/volantis.min.js"></script>
+      
+    
+    <script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+      return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      notify: notify,
+      verify: verify,
+      guest_info: guest_info,
+      
+      appId: "AHP3eJnwKM7kHv6e0Rwre6qD-gzGzoHsz",
+      appKey: "A2poayI0o1E4qSbUgKidPw2Q",
+      placeholder: "快来评论吧~",
+      pageSize:'10',
+      avatar:'mp',
+      lang:'zh-cn',
+      highlight:''
+    })
+    </script>
+  
+
+  
+    <script src="/js/app.js"></script>
+<script src="/js/search.js"></script>
+  
+
+
+
+
+
+
+    <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

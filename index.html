@@ -336,6 +336,8 @@
         
           
         
+          
+        
       
 
 
@@ -345,6 +347,101 @@
       
 
       
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
+          <a href="/UAC实现原理/">
+              
+                  UAC实现原理
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="https://calm2012.github.io/calm2012.github.io">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            calm2012
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            2022-09-03 星期六
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/Windows/UAC实现原理/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              Windows&nbsp;/&nbsp;UAC实现原理
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <h2 id="UAC实现原理："><a href="#UAC实现原理：" class="headerlink" title="UAC实现原理："></a>UAC实现原理：</h2><ul>
+<li>当用户登录系统成功后， 系统会为用户生成一个accessToken。该用户调用的每一个进程都会有一个AccessToken copy。当进程要访问某个securable object 时，系统会比对accessToken拥有的权限（previlages 是否能访问securable object）</li>
+<li>如果安全描述符中不存在DACL，则系统会允许线程进行访问。如果存在DACL，系统会顺序遍历DACL中的每个ACE，检查ACE中的SID在线程的AccessTkoen中是否存在。以访问者中的User SID或Group SID作为关键字查询被访问对象中的DACL。顺序：先查询类型为DENY的ACE，若命中且权限符合则访问拒绝；未命中再在ALLOWED类型的ACE中查询，若命中且类型符合则可以访问；如果前两步后还没命中那么访问拒绝。</li>
+</ul>
+<p><strong>相关概念：</strong><br><strong>ntoskrnl.exe：</strong> ntoskrnl.exe 是 Windows 操作系统的一个重要内核程序文件，里面存储了大量的二进制内核代码，用于调度系统。<br><strong>Windows执行体：</strong> Windows执行体是ntoskrnl.exe中的上层（内核是其下层）。<br><strong>对象管理器（Object Manager）：</strong> 创建、管理和删除Windows执行体对象和抽象数据类型，他们（抽象数据类型）代表了操作系统资源，比如进程、线程和各种同步对象。</p>
+<p><strong>环境子系统：</strong> 环境子系统是操作系统中名词。环境子系统向应用程序提供环境和应用程序编程接口(Appplication Programming Interface, API）。Windows 2000/XP支持三种环境子系统：Win32、POSIX和OS/2，其中最重要的环境子系统是Win32子系统，其他子系统都要通过Win32子系统接收用户的输入和显示输出。环境子系统的作用是将基本的执行体系统服务的某些子集提供给应用程序。 用户应用程序调用系统服务时必须通过一个或多个子系统动态链接库作为中介才可以完成。<br><strong>执行体对象：</strong> 每个Windows环境子系统总是把操作系统的不同面貌呈现给它的应用程序。执行体对象和对象服务是环境子系统用于构建其自有版本的对象和其他资源的基础。<br><strong>安全描述符（Security descriptors）：</strong> 是安全信息的数据结构（SECURITY_DESCRIPTOR），用于可安全（securable）的Windows对象，这些对象可以被唯一名称辨识。安全描述符可用于任何命名对象，包括文件、文件夹、共享、注册表键、进程、线程、命名管道、服务、工作对象以及其他资源。</p>
+<ul>
+<li>版本号：创建此描述符的SRM安全模型的版本;</li>
+<li>标志：一些可选的修饰符，定义了该描述符的行为或特征。表6.5列出了这些标志;</li>
+<li>所有者SID：所有者的安全ID</li>
+<li>组SID：该对象的主组的安全ID（仅用于POSIX）</li>
+<li>自主访问控制列表（discretionary access control list，DACL）：规定了谁可以用什么方式访问该对象。</li>
+<li>系统访问控制列表(System Access Control List，SACL)规定了哪些用户的哪些操作应该被记录到安全审计日志中，以及对象的显式完整性级别。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SECURITY_DESCRIPTOR</span> &#123;</span>  </span><br><span class="line">  UCHAR  Revision;  </span><br><span class="line">  UCHAR  Sbz1;  </span><br><span class="line">  SECURITY_DESCRIPTOR_CONTROL  Control; <span class="comment">//其自身的一些控制位  </span></span><br><span class="line">  PSID  Owner; <span class="comment">//Owner安全标识符(Security identifiers) 相当于UUID，标识用户、用户群、计算机帐户  </span></span><br><span class="line">  PSID  Group; <span class="comment">//Group安全标识符(Security identifiers) 相当于UUID  </span></span><br><span class="line">  PACL  Sacl; <span class="comment">//（System Access Control List），其指出了在该对象上的一组存取方式（如，读、写、运行等）的存取控制权限细节的列表。  </span></span><br><span class="line">  PACL  Dacl; <span class="comment">//（Discretionary Access Control List），其指出了允许和拒绝某用户或用户组的存取控制列表。 如果一个对象没有DACL，那么就是说这个对象是任何人都可以拥有完全的访问权限。   </span></span><br><span class="line">&#125; SECURITY_DESCRIPTOR, *PISECURITY_DESCRIPTOR;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span> &#123;</span>  </span><br><span class="line">    BYTE  AclRevision;  </span><br><span class="line">    BYTE  Sbz1;  </span><br><span class="line">    WORD   AclSize;  </span><br><span class="line">    WORD   AceCount;  </span><br><span class="line">    WORD   Sbz2;  </span><br><span class="line">&#125; ACL, *PACL;</span><br></pre></td></tr></table></figure>
+<p><strong>安全标识符 (Security Identifier，SID)：</strong> 是Windows操作系统使用的独一无二的，不变的标识符用于标识用户、用户群、或其他安全主体。<br><strong>可移植操作系统接口（POSIX）：</strong> 是IEEE为要在各种UNIX操作系统上运行软件，而定义API的一系列互相关联的标准的总称。<br><strong>访问控制项（ access control entries，ACE）：</strong><br><strong>安全描述符：</strong> 包含自主决定的访问控制表（DACL），里面包含有访问控制项（ACE），因此可以允许或拒绝特定用户或用户组的访问。它们还包含一个系统访问控制列表（SACL）以控制对象访问请求的日志（logging）。[2][3]ACE可以显式应用于对象，或者从父对象继承。ACE的顺序在ACL中很重要，拒绝访问的ACE应该比允许访问的ACE更早出现。安全描述符还包含对象所有者。<br><strong>访问控制列表（access control list，ACL）：</strong> 访问控制列表(ACL，access-control list)是由一个头和零个或多个访问控制项(ACE, access-control entry)结构组成的。共有两种类型的ACL: DACL和SACL。在DACL中，每一个ACE包含一个SID和一个访问掩码。</p>
+<hr>
+        
+            <div class="readmore">
+                <a href="/UAC实现原理/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/Windows/"><i class="fas fa-hashtag fa-fw"></i>Windows</a>
+                
+                    <a href="/tags/UAC实现原理/"><i class="fas fa-hashtag fa-fw"></i>UAC实现原理</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
         
           
             <div class="post-wrapper">
@@ -1235,83 +1332,6 @@
             </div>
           
         
-          
-            <div class="post-wrapper">
-              <article class="post reveal ">
-    
-<section class="meta">
-  
-  
-  <div class="meta" id="header-meta">
-    
-      <h2 class="title">
-          <a href="/cmake生成vs工程/">
-              
-                  cmake生成vs工程
-              
-          </a>
-      </h2>
-    
-
-    <div class="new-meta-box">
-      
-        <div class="new-meta-item author">
-          <a href="https://calm2012.github.io/calm2012.github.io">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            calm2012
-          </a>
-        </div>
-      
-      
-        <div class="new-meta-item date">
-          <a class="notlink">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            2020-03-14 星期六
-          </a>
-        </div>
-      
-      
-        
-          
-          <div class="new-meta-item category">
-            <a href="/categories/cmake/cmake/">
-              <i class="fas fa-folder-open" aria-hidden="true"></i>
-              cmake&nbsp;/&nbsp;cmake
-            </a>
-          </div>
-        
-      
-      
-      
-    </div>
-    <hr>
-  </div>
-</section>
-
-    <section class="article typo">
-        <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="string">Configure</span> <span class="string">可能报路径错误，手动修改生成的路径</span></span><br><span class="line"><span class="number">2.</span> <span class="string">Generate生成vs工程</span></span><br></pre></td></tr></table></figure>
-        
-            <div class="readmore">
-                <a href="/cmake生成vs工程/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/cmake/"><i class="fas fa-hashtag fa-fw"></i>cmake</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-            </div>
-          
-        
       
 
   </section>
@@ -1438,6 +1458,10 @@
         
           <li><a class="flat-box child" title="/categories/Ruby/Ruby/" href="/categories/Ruby/Ruby/"><div class="name">Ruby</div><div class="badge">(1)</div></a></li>
         
+          <li><a class="flat-box" title="/categories/Windows/" href="/categories/Windows/"><div class="name">Windows</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/categories/Windows/UAC实现原理/" href="/categories/Windows/UAC实现原理/"><div class="name">UAC实现原理</div><div class="badge">(1)</div></a></li>
+        
           <li><a class="flat-box" title="/categories/cmake/" href="/categories/cmake/"><div class="name">cmake</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/cmake/cmake/" href="/categories/cmake/cmake/"><div class="name">cmake</div><div class="badge">(1)</div></a></li>
@@ -1492,7 +1516,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/CEF/" style="font-size: 14px; color: #999">CEF</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/GoogleTest/" style="font-size: 14px; color: #999">GoogleTest</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/MacOS/" style="font-size: 14px; color: #999">MacOS</a> <a href="/tags/QT/" style="font-size: 16.5px; color: #888">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/VS/" style="font-size: 14px; color: #999">VS</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/自动化测试/" style="font-size: 14px; color: #999">自动化测试</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
+      <a href="/tags/C/" style="font-size: 14px; color: #999">C</a> <a href="/tags/C/" style="font-size: 14px; color: #999">C++</a> <a href="/tags/C-深入浅出系列/" style="font-size: 16.5px; color: #888">C++深入浅出系列</a> <a href="/tags/CEF/" style="font-size: 14px; color: #999">CEF</a> <a href="/tags/Everything/" style="font-size: 14px; color: #999">Everything</a> <a href="/tags/GoogleTest/" style="font-size: 14px; color: #999">GoogleTest</a> <a href="/tags/Linux编译环境设置/" style="font-size: 14px; color: #999">Linux编译环境设置</a> <a href="/tags/Linux软件安装/" style="font-size: 14px; color: #999">Linux软件安装</a> <a href="/tags/Linux高性能服务器编程/" style="font-size: 21.5px; color: #666">Linux高性能服务器编程</a> <a href="/tags/MacOS/" style="font-size: 14px; color: #999">MacOS</a> <a href="/tags/QT/" style="font-size: 16.5px; color: #888">QT</a> <a href="/tags/Resharper/" style="font-size: 14px; color: #999">Resharper</a> <a href="/tags/Ruby/" style="font-size: 14px; color: #999">Ruby</a> <a href="/tags/UAC实现原理/" style="font-size: 14px; color: #999">UAC实现原理</a> <a href="/tags/VC/" style="font-size: 16.5px; color: #888">VC</a> <a href="/tags/VM/" style="font-size: 14px; color: #999">VM</a> <a href="/tags/VS/" style="font-size: 14px; color: #999">VS</a> <a href="/tags/Win10/" style="font-size: 14px; color: #999">Win10</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/cmake/" style="font-size: 14px; color: #999">cmake</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/系统设置/" style="font-size: 14px; color: #999">系统设置</a> <a href="/tags/编译错误/" style="font-size: 16.5px; color: #888">编译错误</a> <a href="/tags/自动化测试/" style="font-size: 14px; color: #999">自动化测试</a> <a href="/tags/跨平台/" style="font-size: 14px; color: #999">跨平台</a> <a href="/tags/软件设置/" style="font-size: 19px; color: #777">软件设置</a>
     </div>
   </section>
 
