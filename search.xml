@@ -13,7 +13,7 @@
       
       <categories>
           
-          <category> C++ </category>
+          <category> C++深入浅出系列 </category>
           
           <category> C++深入浅出之：C++函数的一些底层细节 </category>
           
@@ -22,9 +22,9 @@
       
         <tags>
             
-            <tag> C++ </tag>
-            
             <tag> C++深入浅出系列 </tag>
+            
+            <tag> C++深入浅出之：C++函数的一些底层细节 </tag>
             
         </tags>
       
@@ -214,18 +214,18 @@
       
       <categories>
           
-          <category> C++ </category>
-          
           <category> C++深入浅出系列 </category>
+          
+          <category> C++指针详解 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> C++ </tag>
-            
             <tag> C++深入浅出系列 </tag>
+            
+            <tag> C++指针详解 </tag>
             
         </tags>
       
@@ -268,18 +268,18 @@
       
       <categories>
           
-          <category> C++ </category>
-          
           <category> C++深入浅出系列 </category>
+          
+          <category> C++深入浅出之：C++虚表(一) </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> C++ </tag>
-            
             <tag> C++深入浅出系列 </tag>
+            
+            <tag> C++深入浅出之：C++虚表(一) </tag>
             
         </tags>
       
